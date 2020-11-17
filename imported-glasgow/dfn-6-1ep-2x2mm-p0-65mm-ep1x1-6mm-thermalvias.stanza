@@ -1,0 +1,53 @@
+#use-added-syntax(esir)
+defpackage glasgow/dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias-pkg :
+  pad p[1] : {smd-pad(0.65, 0.35)} at loc(-1.05, 0.65, 0.0)
+  pad p[2] : {smd-pad(0.65, 0.35)} at loc(-1.05, 0.0, 0.0)
+  pad p[3] : {smd-pad(0.65, 0.35)} at loc(-1.05, -0.65, 0.0)
+  pad p[4] : {smd-pad(0.65, 0.35)} at loc(1.05, -0.65, 0.0)
+  pad p[5] : {smd-pad(0.65, 0.35)} at loc(1.05, 0.0, 0.0)
+  pad p[6] : {smd-pad(0.65, 0.35)} at loc(1.05, 0.65, 0.0)
+  pad p[7] : {pth-pad(0.15, 0.325)} at loc(0.0, 0.4, 0.0)
+  pad p[8] : {smd-pad(1.0, 1.6)} at loc(0.0, 0.0, 0.0) on Bottom
+  pad p[9] : {pth-pad(0.15, 0.325)} at loc(0.0, -0.4, 0.0)
+  pad p[10] : {smd-pad(1.0, 1.6)} at loc(0.0, 0.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-0.725, -1.1), Point(0.725, -1.1) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-1.45, 1.1), Point(0.725, 1.1) ])
+  ref-label()
+
+public pcb-component dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias :
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+    [p[2] | 2]
+    [p[3] | 3]
+    [p[4] | 4]
+    [p[5] | 5]
+    [p[6] | 6]
+    [p[7] | 7, 8, 9, 10]
+
+  make-pins(pinspec)
+  make-box-symbol(pinspec)
+  assign-package(dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias-pkg, pinspec)
+
+  name = "Glasgow:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias"
+  description = "6-Lead Plastic Dual Flat, No Lead Package (MA"

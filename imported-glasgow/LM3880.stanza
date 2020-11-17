@@ -1,0 +1,80 @@
+#use-added-syntax(esir)
+defpackage glasgow/LM3880 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package sot-23-6 :
+  pad p[1] : {smd-pad(1.06, 0.65)} at loc(-1.1, 0.95, 0.0)
+  pad p[2] : {smd-pad(1.06, 0.65)} at loc(-1.1, 0.0, 0.0)
+  pad p[3] : {smd-pad(1.06, 0.65)} at loc(-1.1, -0.95, 0.0)
+  pad p[4] : {smd-pad(1.06, 0.65)} at loc(1.1, -0.95, 0.0)
+  pad p[5] : {smd-pad(1.06, 0.65)} at loc(1.1, 0.0, 0.0)
+  pad p[6] : {smd-pad(1.06, 0.65)} at loc(1.1, 0.95, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.9, 1.61), Point(-1.55, 1.61) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.9, -1.61), Point(0.9, -1.61) ])
+  ref-label()
+
+pcb-symbol LM3880-symbol :
+  pin VCC at Point(0.0, 5.08) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin GND at Point(0.0, -5.08) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin EN at Point(-7.62, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FLAG3 at Point(7.62, -2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FLAG2 at Point(7.62, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FLAG1 at Point(7.62, 2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(15.24, 10.16, loc(0.0, 0.0))
+
+public pcb-component LM3880 :
+  pin EN
+  pin GND
+  pin VCC
+  pin FLAG1
+  pin FLAG2
+  pin FLAG3
+  package = sot-23-6(EN => p[3], GND => p[2], VCC => p[1], FLAG1 => p[6], FLAG2 => p[5], FLAG3 => p[4])
+  symbol = LM3880-symbol(EN => EN, GND => GND, VCC => VCC, FLAG1 => FLAG1, FLAG2 => FLAG2, FLAG3 => FLAG3)
+
+  name = "Package_TO_SOT_SMD:SOT-23-6"
+  description = "6-pin SOT-23 package"
+  reference-prefix = "U"
+  mpn = "LM3880"

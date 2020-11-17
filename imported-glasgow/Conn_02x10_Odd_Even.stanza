@@ -1,0 +1,202 @@
+#use-added-syntax(esir)
+defpackage glasgow/Conn_02x10_Odd_Even :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package idc-header-2x10-p2-54mm-vertical :
+  pad p[1] : {rect-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, 0.0, 0.0)
+  pad p[2] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, 0.0, 0.0)
+  pad p[3] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -2.54, 0.0)
+  pad p[4] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -2.54, 0.0)
+  pad p[5] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -5.08, 0.0)
+  pad p[6] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -5.08, 0.0)
+  pad p[7] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -7.62, 0.0)
+  pad p[8] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -7.62, 0.0)
+  pad p[9] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -10.16, 0.0)
+  pad p[10] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -10.16, 0.0)
+  pad p[11] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -12.7, 0.0)
+  pad p[12] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -12.7, 0.0)
+  pad p[13] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -15.24, 0.0)
+  pad p[14] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -15.24, 0.0)
+  pad p[15] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -17.78, 0.0)
+  pad p[16] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -17.78, 0.0)
+  pad p[17] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -20.32, 0.0)
+  pad p[18] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -20.32, 0.0)
+  pad p[19] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(0.0, -22.86, 0.0)
+  pad p[20] : {oval-pth-pad(0.508, 1.7272, 1.7272)} at loc(2.54, -22.86, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.655, 5.6), Point(-1.115, 5.6) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.655, 5.6), Point(-3.655, 3.06) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.405, 5.35), Point(5.945, 5.35) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.405, -28.21), Point(-3.405, 5.35) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(5.945, -28.21), Point(-3.405, -28.21) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(5.945, 5.35), Point(5.945, -28.21) ])
+  ref-label()
+
+pcb-symbol Conn_02x10_Odd_Even-symbol :
+  pin Pin-1 at Point(-1.27, 10.16) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-10 at Point(3.81, 0.0) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-11 at Point(-1.27, -2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-12 at Point(3.81, -2.54) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-13 at Point(-1.27, -5.08) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-14 at Point(3.81, -5.08) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-15 at Point(-1.27, -7.62) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-16 at Point(3.81, -7.62) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-17 at Point(-1.27, -10.16) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-18 at Point(3.81, -10.16) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-19 at Point(-1.27, -12.7) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-2 at Point(3.81, 10.16) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-20 at Point(3.81, -12.7) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-3 at Point(-1.27, 7.62) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-4 at Point(3.81, 7.62) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-5 at Point(-1.27, 5.08) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-6 at Point(3.81, 5.08) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-7 at Point(-1.27, 2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-8 at Point(3.81, 2.54) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-9 at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -12.7))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 10.16))
+  layer("foreground") = Rectangle(5.08, 25.4, loc(1.27, -1.27))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 0.0))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -12.7))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 0.0))
+
+public pcb-component Conn_02x10_Odd_Even :
+  pin Pin-1
+  pin Pin-2
+  pin Pin-3
+  pin Pin-4
+  pin Pin-5
+  pin Pin-6
+  pin Pin-7
+  pin Pin-8
+  pin Pin-9
+  pin Pin-10
+  pin Pin-11
+  pin Pin-12
+  pin Pin-13
+  pin Pin-14
+  pin Pin-15
+  pin Pin-16
+  pin Pin-17
+  pin Pin-18
+  pin Pin-19
+  pin Pin-20
+  package = idc-header-2x10-p2-54mm-vertical(Pin-1 => p[1], Pin-2 => p[2], Pin-3 => p[3], Pin-4 => p[4], Pin-5 => p[5], Pin-6 => p[6], Pin-7 => p[7], Pin-8 => p[8], Pin-9 => p[9], Pin-10 => p[10], Pin-11 => p[11], Pin-12 => p[12], Pin-13 => p[13], Pin-14 => p[14], Pin-15 => p[15], Pin-16 => p[16], Pin-17 => p[17], Pin-18 => p[18], Pin-19 => p[19], Pin-20 => p[20])
+  symbol = Conn_02x10_Odd_Even-symbol(Pin-1 => Pin-1, Pin-2 => Pin-2, Pin-3 => Pin-3, Pin-4 => Pin-4, Pin-5 => Pin-5, Pin-6 => Pin-6, Pin-7 => Pin-7, Pin-8 => Pin-8, Pin-9 => Pin-9, Pin-10 => Pin-10, Pin-11 => Pin-11, Pin-12 => Pin-12, Pin-13 => Pin-13, Pin-14 => Pin-14, Pin-15 => Pin-15, Pin-16 => Pin-16, Pin-17 => Pin-17, Pin-18 => Pin-18, Pin-19 => Pin-19, Pin-20 => Pin-20)
+
+  name = "Connector_IDC:IDC-Header_2x10_P2.54mm_Vertical"
+  description = "Through hole straight IDC box header, 2x10, 2.54mm pitch, double rows"
+  reference-prefix = "J"
+  mpn = "Conn_02x10_Odd_Even"

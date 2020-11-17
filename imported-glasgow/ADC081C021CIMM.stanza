@@ -1,0 +1,99 @@
+#use-added-syntax(esir)
+defpackage glasgow/ADC081C021CIMM :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package msop-8-3x3mm-p0-65mm :
+  pad p[1] : {smd-pad(1.45, 0.45)} at loc(-2.2, 0.975, 0.0)
+  pad p[2] : {smd-pad(1.45, 0.45)} at loc(-2.2, 0.325, 0.0)
+  pad p[3] : {smd-pad(1.45, 0.45)} at loc(-2.2, -0.325, 0.0)
+  pad p[4] : {smd-pad(1.45, 0.45)} at loc(-2.2, -0.975, 0.0)
+  pad p[5] : {smd-pad(1.45, 0.45)} at loc(2.2, -0.975, 0.0)
+  pad p[6] : {smd-pad(1.45, 0.45)} at loc(2.2, -0.325, 0.0)
+  pad p[7] : {smd-pad(1.45, 0.45)} at loc(2.2, 0.325, 0.0)
+  pad p[8] : {smd-pad(1.45, 0.45)} at loc(2.2, 0.975, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-1.675, 1.5), Point(-2.925, 1.5) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-1.675, -1.675), Point(1.675, -1.675) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-1.675, 1.675), Point(1.675, 1.675) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-1.675, -1.675), Point(-1.675, -1.425) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(1.675, -1.675), Point(1.675, -1.425) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(1.675, 1.675), Point(1.675, 1.425) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-1.675, 1.675), Point(-1.675, 1.5) ])
+  ref-label()
+
+pcb-symbol ADC081C021CIMM-symbol :
+  pin SCL at Point(7.62, 2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin ALERT at Point(7.62, -2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin ADR0 at Point(-7.62, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin VIN at Point(-7.62, 2.54) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin VA at Point(0.0, 5.08) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin ADR1 at Point(-7.62, -2.54) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin GND at Point(0.0, -5.08) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SDA at Point(7.62, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(15.24, 10.16, loc(0.0, 0.0))
+
+public pcb-component ADC081C021CIMM :
+  pin VA
+  pin GND
+  pin SCL
+  pin SDA
+  pin VIN
+  pin ADR0
+  pin ADR1
+  pin ALERT
+  package = msop-8-3x3mm-p0-65mm(VA => p[5], GND => p[7], SCL => p[1], SDA => p[8], VIN => p[4], ADR0 => p[3], ADR1 => p[6], ALERT => p[2])
+  symbol = ADC081C021CIMM-symbol(VA => VA, GND => GND, SCL => SCL, SDA => SDA, VIN => VIN, ADR0 => ADR0, ADR1 => ADR1, ALERT => ALERT)
+
+  name = "Package_SO:MSOP-8_3x3mm_P0.65mm"
+  description = "8-Lead Plastic Micro Small Outline Package (MS"
+  reference-prefix = "U"
+  mpn = "ADC081C021CIMM"

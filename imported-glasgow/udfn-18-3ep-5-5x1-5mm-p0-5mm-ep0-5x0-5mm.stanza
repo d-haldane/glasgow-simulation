@@ -1,0 +1,77 @@
+#use-added-syntax(esir)
+defpackage glasgow/udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm-pkg :
+  pad p[1] : {smd-pad(0.45, 0.5)} at loc(-2.5, -0.65, 0.0)
+  pad p[2] : {smd-pad(0.3, 0.5)} at loc(-2.0, -0.65, 0.0)
+  pad p[3] : {smd-pad(0.3, 0.5)} at loc(-1.5, -0.65, 0.0)
+  pad p[4] : {smd-pad(0.3, 0.5)} at loc(-1.0, -0.65, 0.0)
+  pad p[5] : {smd-pad(0.3, 0.5)} at loc(-0.5, -0.65, 0.0)
+  pad p[6] : {smd-pad(0.3, 0.5)} at loc(0.0, -0.65, 0.0)
+  pad p[7] : {smd-pad(0.3, 0.5)} at loc(0.5, -0.65, 0.0)
+  pad p[8] : {smd-pad(0.3, 0.5)} at loc(1.0, -0.65, 0.0)
+  pad p[9] : {smd-pad(0.3, 0.5)} at loc(1.5, -0.65, 0.0)
+  pad p[10] : {smd-pad(0.3, 0.5)} at loc(2.0, -0.65, 0.0)
+  pad p[11] : {smd-pad(0.3, 0.5)} at loc(2.5, -0.65, 0.0)
+  pad p[12] : {smd-pad(0.3, 0.5)} at loc(2.25, 0.65, 0.0)
+  pad p[13] : {smd-pad(0.3, 0.5)} at loc(1.5, 0.65, 0.0)
+  pad p[14] : {smd-pad(0.3, 0.5)} at loc(0.75, 0.65, 0.0)
+  pad p[15] : {smd-pad(0.3, 0.5)} at loc(0.0, 0.65, 0.0)
+  pad p[16] : {smd-pad(0.3, 0.5)} at loc(-0.75, 0.65, 0.0)
+  pad p[17] : {smd-pad(0.3, 0.5)} at loc(-1.5, 0.65, 0.0)
+  pad p[18] : {smd-pad(0.3, 0.5)} at loc(-2.25, 0.65, 0.0)
+  pad p[19] : {smd-pad(0.3, 0.3)} at loc(-1.5, 0.0, 0.0)
+  pad p[20] : {smd-pad(0.3, 0.3)} at loc(0.0, 0.0, 0.0)
+  pad p[21] : {smd-pad(0.3, 0.3)} at loc(1.5, 0.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-3.0, 0.75), Point(-3.0, 0.0) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(3.0, 0.75), Point(3.0, -0.75) ])
+  ref-label()
+
+public pcb-component udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm :
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+    [p[2] | 2]
+    [p[3] | 3]
+    [p[4] | 4]
+    [p[5] | 5]
+    [p[6] | 6]
+    [p[7] | 7]
+    [p[8] | 8]
+    [p[9] | 9]
+    [p[10] | 10]
+    [p[11] | 11]
+    [p[12] | 12]
+    [p[13] | 13]
+    [p[14] | 14]
+    [p[15] | 15]
+    [p[16] | 16]
+    [p[17] | 17]
+    [p[18] | 18]
+    [p[19] | 19]
+    [p[20] | 20]
+    [p[21] | 21]
+
+  make-pins(pinspec)
+  make-box-symbol(pinspec)
+  assign-package(udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm-pkg, pinspec)
+
+  name = "Glasgow:UDFN-18-3EP_5.5x1.5mm_P0.5mm_EP0.5x0.5mm"

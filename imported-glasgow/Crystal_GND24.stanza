@@ -1,0 +1,78 @@
+#use-added-syntax(esir)
+defpackage glasgow/Crystal_GND24 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package crystal-smd-3225-4pin-3-2x2-5mm :
+  pad p[1] : {smd-pad(1.4, 1.2)} at loc(-1.1, -0.85, 0.0)
+  pad p[2] : {smd-pad(1.4, 1.2)} at loc(1.1, -0.85, 0.0)
+  pad p[3] : {smd-pad(1.4, 1.2)} at loc(1.1, 0.85, 0.0)
+  pad p[4] : {smd-pad(1.4, 1.2)} at loc(-1.1, 0.85, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.0, -1.65), Point(2.0, -1.65) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.0, 1.65), Point(-2.0, -1.65) ])
+  ref-label()
+
+pcb-symbol Crystal_GND24-symbol :
+  pin p[1] at Point(-2.54, 0.0) with :
+    direction = Left
+    length = 1.27
+    number-size = 0.762
+    name-size = 0.762
+  pin p[2] at Point(0.0, 3.81) with :
+    direction = Up
+    length = 1.27
+    number-size = 0.762
+    name-size = 0.762
+  pin p[3] at Point(2.54, 0.0) with :
+    direction = Right
+    length = 1.27
+    number-size = 0.762
+    name-size = 0.762
+  pin p[4] at Point(0.0, -3.81) with :
+    direction = Down
+    length = 1.27
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(2.286, 5.08, loc(0.0, 0.0))
+  layer("foreground") = Line(0.0, [Point(-2.54, -2.286), Point(-2.54, -3.556)])
+  layer("foreground") = Line(0.0, [Point(-2.54, -3.556), Point(2.54, -3.556)])
+  layer("foreground") = Line(0.0, [Point(2.54, -3.556), Point(2.54, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-2.54, 2.286), Point(-2.54, 3.556)])
+  layer("foreground") = Line(0.0, [Point(-2.54, 3.556), Point(2.54, 3.556)])
+  layer("foreground") = Line(0.0, [Point(2.54, 3.556), Point(2.54, 2.286)])
+  layer("foreground") = Line(0.0, [Point(-2.54, 0.0), Point(-2.032, 0.0)])
+  layer("foreground") = Line(0.508, [Point(-2.032, -1.27), Point(-2.032, 1.27)])
+  layer("foreground") = Line(0.0, [Point(0.0, -3.81), Point(0.0, -3.556)])
+  layer("foreground") = Line(0.0, [Point(0.0, 3.556), Point(0.0, 3.81)])
+  layer("foreground") = Line(0.508, [Point(2.032, -1.27), Point(2.032, 1.27)])
+  layer("foreground") = Line(0.0, [Point(2.032, 0.0), Point(2.54, 0.0)])
+
+public pcb-component Crystal_GND24 :
+  pin p[1]
+  pin p[2]
+  pin p[3]
+  pin p[4]
+  package = crystal-smd-3225-4pin-3-2x2-5mm(p[1] => p[1], p[2] => p[2], p[3] => p[3], p[4] => p[4])
+  symbol = Crystal_GND24-symbol(p[1] => p[1], p[2] => p[2], p[3] => p[3], p[4] => p[4])
+
+  name = "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm"
+  description = "SMD Crystal SERIES SMD3225/4 http://www.txccrystal.com/images/pdf/7m-accuracy.pdf, 3.2x2.5mm^2 package"
+  reference-prefix = "Y"
+  mpn = "Crystal_GND24"

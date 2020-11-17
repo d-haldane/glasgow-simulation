@@ -1,0 +1,68 @@
+#use-added-syntax(esir)
+defpackage glasgow/tssop-16-4-4x5mm-p0-65mm :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package tssop-16-4-4x5mm-p0-65mm-pkg :
+  pad p[1] : {smd-pad(1.5, 0.45)} at loc(-2.95, 2.275, 0.0)
+  pad p[2] : {smd-pad(1.5, 0.45)} at loc(-2.95, 1.625, 0.0)
+  pad p[3] : {smd-pad(1.5, 0.45)} at loc(-2.95, 0.975, 0.0)
+  pad p[4] : {smd-pad(1.5, 0.45)} at loc(-2.95, 0.325, 0.0)
+  pad p[5] : {smd-pad(1.5, 0.45)} at loc(-2.95, -0.325, 0.0)
+  pad p[6] : {smd-pad(1.5, 0.45)} at loc(-2.95, -0.975, 0.0)
+  pad p[7] : {smd-pad(1.5, 0.45)} at loc(-2.95, -1.625, 0.0)
+  pad p[8] : {smd-pad(1.5, 0.45)} at loc(-2.95, -2.275, 0.0)
+  pad p[9] : {smd-pad(1.5, 0.45)} at loc(2.95, -2.275, 0.0)
+  pad p[10] : {smd-pad(1.5, 0.45)} at loc(2.95, -1.625, 0.0)
+  pad p[11] : {smd-pad(1.5, 0.45)} at loc(2.95, -0.975, 0.0)
+  pad p[12] : {smd-pad(1.5, 0.45)} at loc(2.95, -0.325, 0.0)
+  pad p[13] : {smd-pad(1.5, 0.45)} at loc(2.95, 0.325, 0.0)
+  pad p[14] : {smd-pad(1.5, 0.45)} at loc(2.95, 0.975, 0.0)
+  pad p[15] : {smd-pad(1.5, 0.45)} at loc(2.95, 1.625, 0.0)
+  pad p[16] : {smd-pad(1.5, 0.45)} at loc(2.95, 2.275, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-3.775, 2.8), Point(2.2, 2.8) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-2.2, -2.725), Point(2.2, -2.725) ])
+  ref-label()
+
+public pcb-component tssop-16-4-4x5mm-p0-65mm :
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+    [p[2] | 2]
+    [p[3] | 3]
+    [p[4] | 4]
+    [p[5] | 5]
+    [p[6] | 6]
+    [p[7] | 7]
+    [p[8] | 8]
+    [p[9] | 9]
+    [p[10] | 10]
+    [p[11] | 11]
+    [p[12] | 12]
+    [p[13] | 13]
+    [p[14] | 14]
+    [p[15] | 15]
+    [p[16] | 16]
+
+  make-pins(pinspec)
+  make-box-symbol(pinspec)
+  assign-package(tssop-16-4-4x5mm-p0-65mm-pkg, pinspec)
+
+  name = "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
+  description = "16-Lead Plastic Thin Shrink Small Outline (ST"

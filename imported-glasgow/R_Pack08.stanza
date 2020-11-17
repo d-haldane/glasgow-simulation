@@ -1,0 +1,174 @@
+#use-added-syntax(esir)
+defpackage glasgow/R_Pack08 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package r-array-convex-8x0602 :
+  pad p[1] : {smd-pad(0.8, 0.3)} at loc(-0.9, 1.75, 0.0)
+  pad p[2] : {smd-pad(0.8, 0.3)} at loc(-0.9, 1.25, 0.0)
+  pad p[3] : {smd-pad(0.8, 0.3)} at loc(-0.9, 0.75, 0.0)
+  pad p[4] : {smd-pad(0.8, 0.3)} at loc(-0.9, 0.25, 0.0)
+  pad p[5] : {smd-pad(0.8, 0.3)} at loc(-0.9, -0.25, 0.0)
+  pad p[6] : {smd-pad(0.8, 0.3)} at loc(-0.9, -0.75, 0.0)
+  pad p[7] : {smd-pad(0.8, 0.3)} at loc(-0.9, -1.25, 0.0)
+  pad p[8] : {smd-pad(0.8, 0.3)} at loc(-0.9, -1.75, 0.0)
+  pad p[9] : {smd-pad(0.8, 0.3)} at loc(0.9, -1.75, 0.0)
+  pad p[10] : {smd-pad(0.8, 0.3)} at loc(0.9, -1.25, 0.0)
+  pad p[11] : {smd-pad(0.8, 0.3)} at loc(0.9, -0.75, 0.0)
+  pad p[12] : {smd-pad(0.8, 0.3)} at loc(0.9, -0.25, 0.0)
+  pad p[13] : {smd-pad(0.8, 0.3)} at loc(0.9, 0.25, 0.0)
+  pad p[14] : {smd-pad(0.8, 0.3)} at loc(0.9, 0.75, 0.0)
+  pad p[15] : {smd-pad(0.8, 0.3)} at loc(0.9, 1.25, 0.0)
+  pad p[16] : {smd-pad(0.8, 0.3)} at loc(0.9, 1.75, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.5, 2.12), Point(-0.5, 2.12) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.5, -2.12), Point(-0.5, -2.12) ])
+  ref-label()
+
+pcb-symbol R_Pack08-symbol :
+  pin R1[1] at Point(-10.16, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R1[2] at Point(-10.16, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R2[1] at Point(-7.62, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R2[2] at Point(-7.62, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R3[1] at Point(-5.08, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R3[2] at Point(-5.08, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R4[1] at Point(-2.54, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R4[2] at Point(-2.54, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R5[1] at Point(0.0, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R5[2] at Point(0.0, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R6[1] at Point(2.54, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R6[2] at Point(2.54, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R7[1] at Point(5.08, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R7[2] at Point(5.08, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R8[1] at Point(7.62, -2.54) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin R8[2] at Point(7.62, 2.54) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(1.27, 3.81, loc(-2.54, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(-5.08, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(0.0, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(-7.62, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(-10.16, 0.0))
+  layer("foreground") = Rectangle(20.32, 4.826, loc(-1.27, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(5.08, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(7.62, 0.0))
+  layer("foreground") = Rectangle(1.27, 3.81, loc(2.54, 0.0))
+  layer("foreground") = Line(0.0, [Point(-2.54, -2.54), Point(-2.54, -1.905)])
+  layer("foreground") = Line(0.0, [Point(-2.54, 1.905), Point(-2.54, 2.54)])
+  layer("foreground") = Line(0.0, [Point(-5.08, -2.54), Point(-5.08, -1.905)])
+  layer("foreground") = Line(0.0, [Point(-5.08, 1.905), Point(-5.08, 2.54)])
+  layer("foreground") = Line(0.0, [Point(-7.62, -2.54), Point(-7.62, -1.905)])
+  layer("foreground") = Line(0.0, [Point(-7.62, 1.905), Point(-7.62, 2.54)])
+  layer("foreground") = Line(0.0, [Point(-10.16, -2.54), Point(-10.16, -1.905)])
+  layer("foreground") = Line(0.0, [Point(-10.16, 1.905), Point(-10.16, 2.54)])
+  layer("foreground") = Line(0.0, [Point(0.0, -2.54), Point(0.0, -1.905)])
+  layer("foreground") = Line(0.0, [Point(0.0, 1.905), Point(0.0, 2.54)])
+  layer("foreground") = Line(0.0, [Point(2.54, -2.54), Point(2.54, -1.905)])
+  layer("foreground") = Line(0.0, [Point(2.54, 1.905), Point(2.54, 2.54)])
+  layer("foreground") = Line(0.0, [Point(5.08, -2.54), Point(5.08, -1.905)])
+  layer("foreground") = Line(0.0, [Point(5.08, 1.905), Point(5.08, 2.54)])
+  layer("foreground") = Line(0.0, [Point(7.62, -2.54), Point(7.62, -1.905)])
+  layer("foreground") = Line(0.0, [Point(7.62, 1.905), Point(7.62, 2.54)])
+
+public pcb-component R_Pack08 :
+  pin R1[1]
+  pin R1[2]
+  pin R2[1]
+  pin R2[2]
+  pin R3[1]
+  pin R3[2]
+  pin R4[1]
+  pin R4[2]
+  pin R5[1]
+  pin R5[2]
+  pin R6[1]
+  pin R6[2]
+  pin R7[1]
+  pin R7[2]
+  pin R8[1]
+  pin R8[2]
+  package = r-array-convex-8x0602(R1[1] => p[1], R1[2] => p[16], R2[1] => p[2], R2[2] => p[15], R3[1] => p[3], R3[2] => p[14], R4[1] => p[4], R4[2] => p[13], R5[1] => p[5], R5[2] => p[12], R6[1] => p[6], R6[2] => p[11], R7[1] => p[7], R7[2] => p[10], R8[1] => p[8], R8[2] => p[9])
+  symbol = R_Pack08-symbol(R1[1] => R1[1], R1[2] => R1[2], R2[1] => R2[1], R2[2] => R2[2], R3[1] => R3[1], R3[2] => R3[2], R4[1] => R4[1], R4[2] => R4[2], R5[1] => R5[1], R5[2] => R5[2], R6[1] => R6[1], R6[2] => R6[2], R7[1] => R7[1], R7[2] => R7[2], R8[1] => R8[1], R8[2] => R8[2])
+
+  name = "Resistor_SMD:R_Array_Convex_8x0602"
+  description = "Chip Resistor Network, ROHM MNR18 (see mnr_g.pdf"
+  reference-prefix = "RN"
+  mpn = "R_Pack08"

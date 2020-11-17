@@ -1,0 +1,269 @@
+#use-added-syntax(esir)
+defpackage glasgow/ICE40HX8K-BG121 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package bga-121-9-0x9-0mm-layout11x11-p0-8mm-ball0-4mm-pad0-35mm-nsmd :
+  pad A1 : {bga-pad(0.175)} at loc(-4.0, 4.0, 0.0)
+  pad A2 : {bga-pad(0.175)} at loc(-3.2, 4.0, 0.0)
+  pad A3 : {bga-pad(0.175)} at loc(-2.4, 4.0, 0.0)
+  pad A4 : {bga-pad(0.175)} at loc(-1.6, 4.0, 0.0)
+  pad A5 : {bga-pad(0.175)} at loc(-0.8, 4.0, 0.0)
+  pad A6 : {bga-pad(0.175)} at loc(0.0, 4.0, 0.0)
+  pad A7 : {bga-pad(0.175)} at loc(0.8, 4.0, 0.0)
+  pad A8 : {bga-pad(0.175)} at loc(1.6, 4.0, 0.0)
+  pad A9 : {bga-pad(0.175)} at loc(2.4, 4.0, 0.0)
+  pad B1 : {bga-pad(0.175)} at loc(-4.0, 3.2, 0.0)
+  pad B2 : {bga-pad(0.175)} at loc(-3.2, 3.2, 0.0)
+  pad B3 : {bga-pad(0.175)} at loc(-2.4, 3.2, 0.0)
+  pad B4 : {bga-pad(0.175)} at loc(-1.6, 3.2, 0.0)
+  pad B5 : {bga-pad(0.175)} at loc(-0.8, 3.2, 0.0)
+  pad B6 : {bga-pad(0.175)} at loc(0.0, 3.2, 0.0)
+  pad B7 : {bga-pad(0.175)} at loc(0.8, 3.2, 0.0)
+  pad B8 : {bga-pad(0.175)} at loc(1.6, 3.2, 0.0)
+  pad B9 : {bga-pad(0.175)} at loc(2.4, 3.2, 0.0)
+  pad C1 : {bga-pad(0.175)} at loc(-4.0, 2.4, 0.0)
+  pad C2 : {bga-pad(0.175)} at loc(-3.2, 2.4, 0.0)
+  pad C3 : {bga-pad(0.175)} at loc(-2.4, 2.4, 0.0)
+  pad C4 : {bga-pad(0.175)} at loc(-1.6, 2.4, 0.0)
+  pad C5 : {bga-pad(0.175)} at loc(-0.8, 2.4, 0.0)
+  pad C6 : {bga-pad(0.175)} at loc(0.0, 2.4, 0.0)
+  pad C7 : {bga-pad(0.175)} at loc(0.8, 2.4, 0.0)
+  pad C8 : {bga-pad(0.175)} at loc(1.6, 2.4, 0.0)
+  pad C9 : {bga-pad(0.175)} at loc(2.4, 2.4, 0.0)
+  pad D1 : {bga-pad(0.175)} at loc(-4.0, 1.6, 0.0)
+  pad D2 : {bga-pad(0.175)} at loc(-3.2, 1.6, 0.0)
+  pad D3 : {bga-pad(0.175)} at loc(-2.4, 1.6, 0.0)
+  pad D4 : {bga-pad(0.175)} at loc(-1.6, 1.6, 0.0)
+  pad D5 : {bga-pad(0.175)} at loc(-0.8, 1.6, 0.0)
+  pad D6 : {bga-pad(0.175)} at loc(0.0, 1.6, 0.0)
+  pad D7 : {bga-pad(0.175)} at loc(0.8, 1.6, 0.0)
+  pad D8 : {bga-pad(0.175)} at loc(1.6, 1.6, 0.0)
+  pad D9 : {bga-pad(0.175)} at loc(2.4, 1.6, 0.0)
+  pad E1 : {bga-pad(0.175)} at loc(-4.0, 0.8, 0.0)
+  pad E2 : {bga-pad(0.175)} at loc(-3.2, 0.8, 0.0)
+  pad E3 : {bga-pad(0.175)} at loc(-2.4, 0.8, 0.0)
+  pad E4 : {bga-pad(0.175)} at loc(-1.6, 0.8, 0.0)
+  pad E5 : {bga-pad(0.175)} at loc(-0.8, 0.8, 0.0)
+  pad E6 : {bga-pad(0.175)} at loc(0.0, 0.8, 0.0)
+  pad E7 : {bga-pad(0.175)} at loc(0.8, 0.8, 0.0)
+  pad E8 : {bga-pad(0.175)} at loc(1.6, 0.8, 0.0)
+  pad E9 : {bga-pad(0.175)} at loc(2.4, 0.8, 0.0)
+  pad F1 : {bga-pad(0.175)} at loc(-4.0, 0.0, 0.0)
+  pad F2 : {bga-pad(0.175)} at loc(-3.2, 0.0, 0.0)
+  pad F3 : {bga-pad(0.175)} at loc(-2.4, 0.0, 0.0)
+  pad F4 : {bga-pad(0.175)} at loc(-1.6, 0.0, 0.0)
+  pad F5 : {bga-pad(0.175)} at loc(-0.8, 0.0, 0.0)
+  pad F6 : {bga-pad(0.175)} at loc(0.0, 0.0, 0.0)
+  pad F7 : {bga-pad(0.175)} at loc(0.8, 0.0, 0.0)
+  pad F8 : {bga-pad(0.175)} at loc(1.6, 0.0, 0.0)
+  pad F9 : {bga-pad(0.175)} at loc(2.4, 0.0, 0.0)
+  pad G1 : {bga-pad(0.175)} at loc(-4.0, -0.8, 0.0)
+  pad G2 : {bga-pad(0.175)} at loc(-3.2, -0.8, 0.0)
+  pad G3 : {bga-pad(0.175)} at loc(-2.4, -0.8, 0.0)
+  pad G4 : {bga-pad(0.175)} at loc(-1.6, -0.8, 0.0)
+  pad G5 : {bga-pad(0.175)} at loc(-0.8, -0.8, 0.0)
+  pad G6 : {bga-pad(0.175)} at loc(0.0, -0.8, 0.0)
+  pad G7 : {bga-pad(0.175)} at loc(0.8, -0.8, 0.0)
+  pad G8 : {bga-pad(0.175)} at loc(1.6, -0.8, 0.0)
+  pad G9 : {bga-pad(0.175)} at loc(2.4, -0.8, 0.0)
+  pad H1 : {bga-pad(0.175)} at loc(-4.0, -1.6, 0.0)
+  pad H2 : {bga-pad(0.175)} at loc(-3.2, -1.6, 0.0)
+  pad H3 : {bga-pad(0.175)} at loc(-2.4, -1.6, 0.0)
+  pad H4 : {bga-pad(0.175)} at loc(-1.6, -1.6, 0.0)
+  pad H5 : {bga-pad(0.175)} at loc(-0.8, -1.6, 0.0)
+  pad H6 : {bga-pad(0.175)} at loc(0.0, -1.6, 0.0)
+  pad H7 : {bga-pad(0.175)} at loc(0.8, -1.6, 0.0)
+  pad H8 : {bga-pad(0.175)} at loc(1.6, -1.6, 0.0)
+  pad H9 : {bga-pad(0.175)} at loc(2.4, -1.6, 0.0)
+  pad J1 : {bga-pad(0.175)} at loc(-4.0, -2.4, 0.0)
+  pad J2 : {bga-pad(0.175)} at loc(-3.2, -2.4, 0.0)
+  pad J3 : {bga-pad(0.175)} at loc(-2.4, -2.4, 0.0)
+  pad J4 : {bga-pad(0.175)} at loc(-1.6, -2.4, 0.0)
+  pad J5 : {bga-pad(0.175)} at loc(-0.8, -2.4, 0.0)
+  pad J6 : {bga-pad(0.175)} at loc(0.0, -2.4, 0.0)
+  pad J7 : {bga-pad(0.175)} at loc(0.8, -2.4, 0.0)
+  pad J8 : {bga-pad(0.175)} at loc(1.6, -2.4, 0.0)
+  pad J9 : {bga-pad(0.175)} at loc(2.4, -2.4, 0.0)
+  pad K1 : {bga-pad(0.175)} at loc(-4.0, -3.2, 0.0)
+  pad K2 : {bga-pad(0.175)} at loc(-3.2, -3.2, 0.0)
+  pad K3 : {bga-pad(0.175)} at loc(-2.4, -3.2, 0.0)
+  pad K4 : {bga-pad(0.175)} at loc(-1.6, -3.2, 0.0)
+  pad K5 : {bga-pad(0.175)} at loc(-0.8, -3.2, 0.0)
+  pad K6 : {bga-pad(0.175)} at loc(0.0, -3.2, 0.0)
+  pad K7 : {bga-pad(0.175)} at loc(0.8, -3.2, 0.0)
+  pad K8 : {bga-pad(0.175)} at loc(1.6, -3.2, 0.0)
+  pad K9 : {bga-pad(0.175)} at loc(2.4, -3.2, 0.0)
+  pad L1 : {bga-pad(0.175)} at loc(-4.0, -4.0, 0.0)
+  pad L2 : {bga-pad(0.175)} at loc(-3.2, -4.0, 0.0)
+  pad L3 : {bga-pad(0.175)} at loc(-2.4, -4.0, 0.0)
+  pad L4 : {bga-pad(0.175)} at loc(-1.6, -4.0, 0.0)
+  pad L5 : {bga-pad(0.175)} at loc(-0.8, -4.0, 0.0)
+  pad L6 : {bga-pad(0.175)} at loc(0.0, -4.0, 0.0)
+  pad L7 : {bga-pad(0.175)} at loc(0.8, -4.0, 0.0)
+  pad L8 : {bga-pad(0.175)} at loc(1.6, -4.0, 0.0)
+  pad L9 : {bga-pad(0.175)} at loc(2.4, -4.0, 0.0)
+  pad A10 : {bga-pad(0.175)} at loc(3.2, 4.0, 0.0)
+  pad A11 : {bga-pad(0.175)} at loc(4.0, 4.0, 0.0)
+  pad B10 : {bga-pad(0.175)} at loc(3.2, 3.2, 0.0)
+  pad B11 : {bga-pad(0.175)} at loc(4.0, 3.2, 0.0)
+  pad C10 : {bga-pad(0.175)} at loc(3.2, 2.4, 0.0)
+  pad C11 : {bga-pad(0.175)} at loc(4.0, 2.4, 0.0)
+  pad D10 : {bga-pad(0.175)} at loc(3.2, 1.6, 0.0)
+  pad D11 : {bga-pad(0.175)} at loc(4.0, 1.6, 0.0)
+  pad E10 : {bga-pad(0.175)} at loc(3.2, 0.8, 0.0)
+  pad E11 : {bga-pad(0.175)} at loc(4.0, 0.8, 0.0)
+  pad F10 : {bga-pad(0.175)} at loc(3.2, 0.0, 0.0)
+  pad F11 : {bga-pad(0.175)} at loc(4.0, 0.0, 0.0)
+  pad G10 : {bga-pad(0.175)} at loc(3.2, -0.8, 0.0)
+  pad G11 : {bga-pad(0.175)} at loc(4.0, -0.8, 0.0)
+  pad H10 : {bga-pad(0.175)} at loc(3.2, -1.6, 0.0)
+  pad H11 : {bga-pad(0.175)} at loc(4.0, -1.6, 0.0)
+  pad J10 : {bga-pad(0.175)} at loc(3.2, -2.4, 0.0)
+  pad J11 : {bga-pad(0.175)} at loc(4.0, -2.4, 0.0)
+  pad K10 : {bga-pad(0.175)} at loc(3.2, -3.2, 0.0)
+  pad K11 : {bga-pad(0.175)} at loc(4.0, -3.2, 0.0)
+  pad L10 : {bga-pad(0.175)} at loc(3.2, -4.0, 0.0)
+  pad L11 : {bga-pad(0.175)} at loc(4.0, -4.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.525, 4.625), Point(4.625, 4.625) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(4.625, 4.625), Point(4.625, -4.625) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-4.625, -4.625), Point(4.625, -4.625) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-4.625, 3.525), Point(-4.625, -4.625) ])
+  ref-label()
+
+public pcb-component ICE40HX8K-BG121 :
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Ref ... | Dir]
+    [GND | E5, E6, E7, F5, F6, F7, G5, G6, G7, H5 | Down]
+    [VCC | D4, D8, H4, H8 | Up]
+    [CDONE | K8 | Right]
+    [IOB-56 | L1 | Left]
+    [IOB-57 | J3 | Left]
+    [IOB-61 | L2 | Left]
+    [IOB-63 | K3 | Left]
+    [IOB-64 | J4 | Left]
+    [IOB-71 | L3 | Left]
+    [IOB-72 | L4 | Left]
+    [IOB-73 | K4 | Left]
+    [IOB-78 | J5 | Left]
+    [IOB-79 | K5 | Left]
+    [IOB-86 | J7 | Left]
+    [IOB-87 | H7 | Left]
+    [IOB-89 | K7 | Left]
+    [IOB-91 | J8 | Left]
+    [IOB-94 | L7 | Left]
+    [IOL-2A | B1 | Left]
+    [IOL-2B | B2 | Left]
+    [IOL-4A | C4 | Left]
+    [IOL-4B | C3 | Left]
+    [IOL-5A | C2 | Left]
+    [IOL-5B | C1 | Left]
+    [IOL-8A | E1 | Left]
+    [IOL-8B | D1 | Left]
+    [IOL-9A | D2 | Left]
+    [IOL-9B | D3 | Left]
+    [GNDPLL0 | L6 | Right]
+    [GNDPLL1 | C5 | Right]
+    [IOL-10A | E2 | Left]
+    [IOL-10B | E3 | Left]
+    [IOL-12A | F1 | Left]
+    [IOL-12B | F2 | Left]
+    [IOL-13A | F4 | Left]
+    [IOL-14B | G2 | Left]
+    [IOL-17A | G3 | Left]
+    [IOL-17B | H3 | Left]
+    [IOL-18A | H1 | Left]
+    [IOL-18B | H2 | Left]
+    [IOL-23A | J1 | Left]
+    [IOL-23B | K1 | Left]
+    [IOL-25A | K2 | Left]
+    [IOL-25B | J2 | Left]
+    [IOR-114 | J11 | Left]
+    [IOR-115 | K11 | Left]
+    [IOR-116 | H10 | Left]
+    [IOR-117 | J10 | Left]
+    [IOR-118 | G8 | Left]
+    [IOR-119 | H11 | Left]
+    [IOR-120 | G10 | Left]
+    [IOR-128 | G9 | Left]
+    [IOR-129 | G11 | Left]
+    [IOR-136 | F10 | Left]
+    [IOR-137 | F9 | Left]
+    [IOR-144 | E9 | Left]
+    [IOR-146 | E8 | Left]
+    [IOR-147 | D9 | Left]
+    [IOR-148 | E11 | Left]
+    [IOR-152 | D11 | Left]
+    [IOR-154 | D10 | Left]
+    [IOR-160 | C11 | Left]
+    [IOR-161 | B11 | Left]
+    [IOT-168 | A11 | Left]
+    [IOT-170 | A10 | Left]
+    [IOT-172 | C9 | Left]
+    [IOT-174 | B9 | Left]
+    [IOT-177 | B8 | Left]
+    [IOT-178 | A9 | Left]
+    [IOT-179 | C8 | Left]
+    [IOT-181 | D7 | Left]
+    [IOT-190 | A8 | Left]
+    [IOT-191 | C7 | Left]
+    [IOT-192 | A7 | Left]
+    [IOT-206 | A6 | Left]
+    [IOT-207 | A5 | Left]
+    [IOT-208 | B5 | Left]
+    [IOT-211 | A4 | Left]
+    [IOT-212 | D5 | Left]
+    [IOT-219 | B4 | Left]
+    [IOT-221 | B3 | Left]
+    [IOT-222 | A2 | Left]
+    [IOT-223 | A3 | Left]
+    [IOT-225 | A1 | Left]
+    [VCC-SPI | L11 | Up]
+    [VCCIO-0 | D6 | Up]
+    [VCCIO-1 | F8 | Up]
+    [VCCIO-2 | H6 | Up]
+    [VCCIO-3 | E4, G4 | Up]
+    [VCCPLL0 | J6 | Right]
+    [VCCPLL1 | C6 | Right]
+    [VPP-2V5 | C10 | Up]
+    [nCRESET | L9 | Left]
+    [VPP-FAST | B10 | Up]
+    [IOB-108-SS | K10 | Left]
+    [IOB-105-SDO | K9 | Left]
+    [IOB-106-SDI | J9 | Left]
+    [IOB-107-SCK | L10 | Left]
+    [IOB-81-GBIN5 | L5 | Left]
+    [IOB-82-GBIN4 | K6 | Left]
+    [IOL-13B-GBIN7 | F3 | Left]
+    [IOL-14A-GBIN6 | G1 | Left]
+    [IOR-140-GBIN3 | F11 | Left]
+    [IOR-141-GBIN2 | E10 | Left]
+    [IOT-197-GBIN1 | B7 | Left]
+    [IOT-198-GBIN0 | B6 | Left]
+    [IOB-103-CBSEL0 | L8 | Left]
+    [IOB-104-CBSEL1 | H9 | Left]
+
+  make-pins(pinspec)
+  make-box-symbol(pinspec)
+  assign-package(bga-121-9-0x9-0mm-layout11x11-p0-8mm-ball0-4mm-pad0-35mm-nsmd, pinspec)
+
+  name = "Package_BGA:BGA-121_9.0x9.0mm_Layout11x11_P0.8mm_Ball0.4mm_Pad0.35mm_NSMD"
+  description = "121-ball, 0.8mm BGA (based on http://www.latticesemi.com/view_document?document_id=213"
+  reference-prefix = "U"
+  mpn = "ICE40HX8K-BG121"

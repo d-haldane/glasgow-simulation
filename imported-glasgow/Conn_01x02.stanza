@@ -1,0 +1,82 @@
+#use-added-syntax(esir)
+defpackage glasgow/Conn_01x02 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package molex-kk-254-1x02-p2-54mm-horizontal :
+  pad p[1] : {pth-pad(0.6, 0.87)} at loc(0.0, 0.0, 180.0)
+  pad p[2] : {oval-pth-pad(0.6, 1.74, 2.2)} at loc(-2.54, 0.0, 180.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.143, 0.0), Point(1.651, 0.254) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.651, 0.254), Point(1.651, -0.254) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.651, -0.254), Point(1.143, 0.0) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.0, -5.715), Point(1.397, -5.715) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.0, -5.715), Point(0.0, -10.541) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.54, -5.715), Point(-2.54, -10.541) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.159, -11.049), Point(-2.159, -11.557) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.921, -5.715), Point(-2.921, -11.557) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.381, -11.049), Point(-0.381, -11.557) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.381, -5.715), Point(0.381, -11.557) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.381, -1.397), Point(0.381, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.381, -1.397), Point(-0.381, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.159, -1.397), Point(-2.159, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.921, -1.397), Point(-2.921, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.762, -2.286), Point(1.397, -2.286) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.778, -2.286), Point(-0.762, -2.286) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.397, -2.286), Point(1.397, -5.715) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.54, -5.715), Point(-3.937, -5.715) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.937, -5.715), Point(-3.937, -2.286) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.937, -2.286), Point(-3.302, -2.286) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.0, -10.541), Point(-2.54, -10.541) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.0, -10.541), Point(-0.25, -11.049) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.25, -11.049), Point(-2.286, -11.049) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.286, -11.049), Point(-2.54, -10.541) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.762, -2.921), Point(0.762, -2.286) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.762, -2.921), Point(-0.762, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.762, -2.286), Point(-0.762, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.778, -2.921), Point(-1.778, -2.286) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.778, -2.921), Point(-3.302, -2.921) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.302, -2.286), Point(-3.302, -2.921) ])
+  ref-label()
+
+pcb-symbol Conn_01x02-symbol :
+  pin Pin-1 at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-2 at Point(-1.27, -2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 0.0))
+  layer("foreground") = Rectangle(2.54, 5.08, loc(0.0, -1.27))
+
+public pcb-component Conn_01x02 :
+  pin Pin-1
+  pin Pin-2
+  package = molex-kk-254-1x02-p2-54mm-horizontal(Pin-1 => p[1], Pin-2 => p[2])
+  symbol = Conn_01x02-symbol(Pin-1 => Pin-1, Pin-2 => Pin-2)
+
+  name = "Glasgow:Molex_KK-254_1x02_P2.54mm_Horizontal"
+  description = "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-02A example for new part number: 22-27-2021, 2 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf"
+  reference-prefix = "J"
+  mpn = "Conn_01x02"

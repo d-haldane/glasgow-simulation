@@ -1,0 +1,759 @@
+#use-added-syntax(esir)
+defpackage glasgow :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+  import glasgow/R_Pack08
+  import glasgow/R
+  import glasgow/LM3880
+  import glasgow/Conn_01x02
+  import glasgow/udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm
+  import glasgow/Conn_01x03
+  import glasgow/LED
+  import glasgow/tssop-16-4-4x5mm-p0-65mm
+  import glasgow/fiducial-0-75mm-dia-1-5mm-outer
+  import glasgow/dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias
+  import glasgow/TPS73601DBV
+  import glasgow/fiducial-0-5mm-dia-1mm-outer
+  import glasgow/testpoint-pad-d1-0mm
+  import glasgow/SN74LVC1T45DRL
+  import glasgow/usb-micro-b-molex-47346-0001
+  import glasgow/D_Zener
+  import glasgow/wdfn-8-1ep-3x2mm-p0-5mm-ep1-3x1-4mm
+  import glasgow/Conn_02x22_Odd_Even
+  import glasgow/Crystal_GND24
+  import glasgow/Ferrite_Bead
+  import glasgow/ADC081C021CIMM
+  import glasgow/Conn_02x10_Odd_Even
+  import glasgow/Conn_01x08
+  import glasgow/r-0402-1005metric
+  import glasgow/ICE40HX8K-BG121
+  import glasgow/CAT24M01W
+  import glasgow/MountingHole_Pad
+  import glasgow/c-C
+  import glasgow/CY7C68013A-56LTX
+  import glasgow/c-0402-1005metric
+  import glasgow/CP
+
+pcb-module glasgow :
+  inst C1 : c-C
+  inst C10 : c-0402-1005metric
+  inst C11 : c-0402-1005metric
+  inst C12 : c-0402-1005metric
+  inst C13 : c-0402-1005metric
+  inst C14 : c-C
+  inst C15 : c-0402-1005metric
+  inst C16 : c-0402-1005metric
+  inst C17 : c-0402-1005metric
+  inst C18 : c-0402-1005metric
+  inst C19 : c-C
+  inst C2 : c-0402-1005metric
+  inst C20 : c-0402-1005metric
+  inst C21 : c-0402-1005metric
+  inst C22 : c-0402-1005metric
+  inst C23 : c-0402-1005metric
+  inst C24 : c-0402-1005metric
+  inst C25 : c-0402-1005metric
+  inst C26 : c-C
+  inst C27 : c-C
+  inst C28 : c-C
+  inst C29 : c-0402-1005metric
+  inst C3 : c-0402-1005metric
+  inst C30 : c-0402-1005metric
+  inst C31 : c-C
+  inst C32 : c-0402-1005metric
+  inst C33 : c-0402-1005metric
+  inst C34 : c-0402-1005metric
+  inst C35 : c-0402-1005metric
+  inst C36 : c-0402-1005metric
+  inst C37 : c-0402-1005metric
+  inst C38 : c-0402-1005metric
+  inst C39 : c-0402-1005metric
+  inst C4 : c-0402-1005metric
+  inst C40 : c-0402-1005metric
+  inst C41 : c-0402-1005metric
+  inst C42 : c-0402-1005metric
+  inst C43 : c-0402-1005metric
+  inst C44 : c-0402-1005metric
+  inst C45 : c-0402-1005metric
+  inst C46 : c-0402-1005metric
+  inst C47 : c-0402-1005metric
+  inst C48 : c-0402-1005metric
+  inst C49 : c-0402-1005metric
+  inst C5 : c-0402-1005metric
+  inst C50 : c-0402-1005metric
+  inst C51 : c-0402-1005metric
+  inst C52 : c-0402-1005metric
+  inst C53 : c-C
+  inst C54 : c-0402-1005metric
+  inst C55 : c-0402-1005metric
+  inst C56 : c-0402-1005metric
+  inst C57 : c-0402-1005metric
+  inst C58 : c-0402-1005metric
+  inst C59 : c-0402-1005metric
+  inst C6 : c-0402-1005metric
+  inst C60 : c-0402-1005metric
+  inst C61 : c-0402-1005metric
+  inst C62 : c-0402-1005metric
+  inst C63 : c-0402-1005metric
+  inst C64 : c-0402-1005metric
+  inst C65 : c-0402-1005metric
+  inst C66 : c-0402-1005metric
+  inst C67 : c-0402-1005metric
+  inst C68 : c-0402-1005metric
+  inst C69 : c-0402-1005metric
+  inst C7 : c-0402-1005metric
+  inst C70 : c-0402-1005metric
+  inst C71 : c-0402-1005metric
+  inst C72 : c-0402-1005metric
+  inst C73 : c-0402-1005metric
+  inst C74 : c-0402-1005metric
+  inst C75 : c-0402-1005metric
+  inst C76 : c-C
+  inst C77 : c-0402-1005metric
+  inst C78 : c-0402-1005metric
+  inst C79 : c-0402-1005metric
+  inst C8 : c-0402-1005metric
+  inst C80 : c-C
+  inst C81 : c-0402-1005metric
+  inst C82 : c-C
+  inst C83 : c-C
+  inst C84 : c-0402-1005metric
+  inst C85 : c-0402-1005metric
+  inst C86 : c-C
+  inst C87 : CP
+  inst C9 : c-0402-1005metric
+  inst D1-1 : LED
+  inst D10 : LED
+  inst D11 : D_Zener
+  inst D12 : D_Zener
+  inst D13 : D_Zener
+  inst D14 : LED
+  inst D15 : LED
+  inst D2-1 : LED
+  inst D3-1 : LED
+  inst D4-1 : LED
+  inst D5-1 : LED
+  inst D6-1 : LED
+  inst D7-1 : LED
+  inst D8 : LED
+  inst D9 : LED
+  inst FB1 : Ferrite_Bead
+  inst FID1 : fiducial-0-75mm-dia-1-5mm-outer
+  inst FID2 : fiducial-0-75mm-dia-1-5mm-outer
+  inst FID3 : fiducial-0-75mm-dia-1-5mm-outer
+  inst FID4 : fiducial-0-75mm-dia-1-5mm-outer
+  inst FID5 : fiducial-0-75mm-dia-1-5mm-outer
+  inst FID6 : fiducial-0-75mm-dia-1-5mm-outer
+  inst FID7 : fiducial-0-5mm-dia-1mm-outer
+  inst FID8 : fiducial-0-5mm-dia-1mm-outer
+  inst J1 : usb-micro-b-molex-47346-0001
+  inst J10 : Conn_01x03
+  inst J2 : Conn_02x10_Odd_Even
+  inst J3 : Conn_02x10_Odd_Even
+  inst J4 : Conn_01x02
+  inst J5 : Conn_02x22_Odd_Even
+  inst J6 : Conn_01x08
+  inst J7 : Conn_01x08
+  inst J8 : Conn_01x08
+  inst J9 : Conn_01x08
+  inst MK1 : MountingHole_Pad
+  inst MK2 : MountingHole_Pad
+  inst MK3 : MountingHole_Pad
+  inst MK4 : MountingHole_Pad
+  inst R1 : r-0402-1005metric
+  inst R10 : r-0402-1005metric
+  inst R11 : r-0402-1005metric
+  inst R12 : r-0402-1005metric
+  inst R13 : r-0402-1005metric
+  inst R14 : r-0402-1005metric
+  inst R15 : r-0402-1005metric
+  inst R16 : r-0402-1005metric
+  inst R17 : r-0402-1005metric
+  inst R18 : r-0402-1005metric
+  inst R19 : r-0402-1005metric
+  inst R2 : r-0402-1005metric
+  inst R20 : r-0402-1005metric
+  inst R21 : r-0402-1005metric
+  inst R22 : r-0402-1005metric
+  inst R23 : r-0402-1005metric
+  inst R24 : r-0402-1005metric
+  inst R25 : r-0402-1005metric
+  inst R26 : r-0402-1005metric
+  inst R27 : r-0402-1005metric
+  inst R28 : r-0402-1005metric
+  inst R29 : r-0402-1005metric
+  inst R3 : r-0402-1005metric
+  inst R30 : r-0402-1005metric
+  inst R31 : r-0402-1005metric
+  inst R32 : r-0402-1005metric
+  inst R33 : r-0402-1005metric
+  inst R34 : r-0402-1005metric
+  inst R35 : r-0402-1005metric
+  inst R36 : r-0402-1005metric
+  inst R37 : r-0402-1005metric
+  inst R38 : r-0402-1005metric
+  inst R39 : r-0402-1005metric
+  inst R4 : r-0402-1005metric
+  inst R40 : r-0402-1005metric
+  inst R41 : r-0402-1005metric
+  inst R42 : r-0402-1005metric
+  inst R43 : r-0402-1005metric
+  inst R44 : r-0402-1005metric
+  inst R45 : r-0402-1005metric
+  inst R46 : r-0402-1005metric
+  inst R47 : r-0402-1005metric
+  inst R48 : R
+  inst R49 : R
+  inst R5 : r-0402-1005metric
+  inst R50 : R
+  inst R51 : R
+  inst R6 : r-0402-1005metric
+  inst R7 : r-0402-1005metric
+  inst R8 : r-0402-1005metric
+  inst R9 : r-0402-1005metric
+  inst RN1 : R_Pack08
+  inst RN2 : R_Pack08
+  inst RN3 : R_Pack08
+  inst RN4 : R_Pack08
+  inst RN5 : R_Pack08
+  inst RN6 : R_Pack08
+  inst TP1 : testpoint-pad-d1-0mm
+  inst TP10 : testpoint-pad-d1-0mm
+  inst TP11 : testpoint-pad-d1-0mm
+  inst TP12 : testpoint-pad-d1-0mm
+  inst TP13 : testpoint-pad-d1-0mm
+  inst TP14 : testpoint-pad-d1-0mm
+  inst TP15 : testpoint-pad-d1-0mm
+  inst TP16 : testpoint-pad-d1-0mm
+  inst TP17 : testpoint-pad-d1-0mm
+  inst TP18 : testpoint-pad-d1-0mm
+  inst TP19 : testpoint-pad-d1-0mm
+  inst TP2 : testpoint-pad-d1-0mm
+  inst TP3 : testpoint-pad-d1-0mm
+  inst TP4 : testpoint-pad-d1-0mm
+  inst TP5 : testpoint-pad-d1-0mm
+  inst TP6 : testpoint-pad-d1-0mm
+  inst TP7 : testpoint-pad-d1-0mm
+  inst TP8 : testpoint-pad-d1-0mm
+  inst TP9 : testpoint-pad-d1-0mm
+  inst U1 : CY7C68013A-56LTX
+  inst U10 : SN74LVC1T45DRL
+  inst U11 : SN74LVC1T45DRL
+  inst U12 : ADC081C021CIMM
+  inst U13 : LM3880
+  inst U14 : TPS73601DBV
+  inst U15 : LM3880
+  inst U16 : SN74LVC1T45DRL
+  inst U17 : SN74LVC1T45DRL
+  inst U18 : SN74LVC1T45DRL
+  inst U19 : tssop-16-4-4x5mm-p0-65mm
+  inst U2 : CAT24M01W
+  inst U20 : LM3880
+  inst U21 : ADC081C021CIMM
+  inst U22 : SN74LVC1T45DRL
+  inst U23 : SN74LVC1T45DRL
+  inst U24 : SN74LVC1T45DRL
+  inst U25 : SN74LVC1T45DRL
+  inst U26 : SN74LVC1T45DRL
+  inst U27 : SN74LVC1T45DRL
+  inst U28 : SN74LVC1T45DRL
+  inst U29 : SN74LVC1T45DRL
+  inst U3 : CAT24M01W
+  inst U30 : ICE40HX8K-BG121
+  inst U31 : TPS73601DBV
+  inst U32 : SN74LVC1T45DRL
+  inst U33 : udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm
+  inst U34 : wdfn-8-1ep-3x2mm-p0-5mm-ep1-3x1-4mm
+  inst U35 : udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm
+  inst U36 : dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias
+  inst U4 : SN74LVC1T45DRL
+  inst U5 : tssop-16-4-4x5mm-p0-65mm
+  inst U6 : SN74LVC1T45DRL
+  inst U7 : LM3880
+  inst U8 : dfn-6-1ep-2x2mm-p0-65mm-ep1x1-6mm-thermalvias
+  inst U9 : SN74LVC1T45DRL
+  inst Y1 : Crystal_GND24
+
+  package(C1) at loc(65.4, -99.5, 0.0) on Top
+  package(C10) at loc(68.1, -99.45, 0.0) on Top
+  package(C11) at loc(61.6, -90.2, 180.0) on Top
+  package(C12) at loc(61.6, -95.0, 0.0) on Top
+  package(C13) at loc(55.4, -100.9, 0.0) on Top
+  package(C14) at loc(78.15, -101.325, 270.0) on Top
+  package(C15) at loc(74.5, -111.015, 90.0) on Top
+  package(C16) at loc(83.9, -103.55, 180.0) on Top
+  package(C17) at loc(74.5, -116.715, 90.0) on Top
+  package(C18) at loc(82.1, -97.5, 0.0) on Top
+  package(C19) at loc(85.9, -100.0, 0.0) on Top
+  package(C2) at loc(65.9, -97.75, 270.0) on Top
+  package(C20) at loc(87.65, -98.8, 0.0) on Top
+  package(C21) at loc(85.7, -94.8, 90.0) on Top
+  package(C22) at loc(117.715, -101.3, 0.0) on Top
+  package(C23) at loc(83.7, -96.7, 180.0) on Top
+  package(C24) at loc(85.3, -93.5, 0.0) on Top
+  package(C25) at loc(81.7, -94.7, 270.0) on Top
+  package(C26) at loc(65.9, -117.0, 180.0) on Top
+  package(C27) at loc(68.5, -110.3, 90.0) on Top
+  package(C28) at loc(68.5, -115.4, 90.0) on Top
+  package(C29) at loc(107.7, -101.3, 180.0) on Top
+  package(C3) at loc(65.9, -95.75, 270.0) on Top
+  package(C30) at loc(125.9, -110.3, 180.0) on Top
+  package(C31) at loc(126.4, -105.1, 180.0) on Top
+  package(C32) at loc(125.6, -98.085, 90.0) on Top
+  package(C33) at loc(83.7, -94.3, 180.0) on Top
+  package(C34) at loc(94.4, -85.3, 270.0) on Top
+  package(C35) at loc(94.4, -87.7, 270.0) on Top
+  package(C36) at loc(94.4, -90.1, 270.0) on Top
+  package(C37) at loc(94.4, -92.5, 270.0) on Top
+  package(C38) at loc(95.8, -85.3, 270.0) on Top
+  package(C39) at loc(95.8, -87.685, 270.0) on Top
+  package(C4) at loc(73.8, -97.765, 270.0) on Top
+  package(C40) at loc(95.8, -90.1, 270.0) on Top
+  package(C41) at loc(95.8, -92.5, 270.0) on Top
+  package(C42) at loc(99.3, -85.3, 270.0) on Top
+  package(C43) at loc(99.3, -87.7, 270.0) on Top
+  package(C44) at loc(120.6, -108.5, 90.0) on Top
+  package(C45) at loc(125.6, -102.9, 90.0) on Top
+  package(C46) at loc(120.1, -105.4, 180.0) on Top
+  package(C47) at loc(99.3, -90.1, 270.0) on Top
+  package(C48) at loc(99.3, -92.5, 270.0) on Top
+  package(C49) at loc(100.7, -85.3, 270.0) on Top
+  package(C5) at loc(72.5, -91.55, 180.0) on Top
+  package(C50) at loc(100.7, -87.7, 270.0) on Top
+  package(C51) at loc(100.7, -90.1, 270.0) on Top
+  package(C52) at loc(100.7, -92.515, 270.0) on Top
+  package(C53) at loc(123.0, -105.1, 0.0) on Top
+  package(C54) at loc(117.7, -89.7, 0.0) on Top
+  package(C55) at loc(125.9, -80.7, 180.0) on Top
+  package(C56) at loc(125.6, -92.9, 270.0) on Top
+  package(C57) at loc(120.1, -85.6, 180.0) on Top
+  package(C58) at loc(120.6, -82.5, 270.0) on Top
+  package(C59) at loc(125.6, -89.1, 90.0) on Top
+  package(C6) at loc(72.1, -99.45, 180.0) on Top
+  package(C60) at loc(94.4, -97.7, 270.0) on Top
+  package(C61) at loc(94.4, -100.1, 270.0) on Top
+  package(C62) at loc(94.4, -102.485, 270.0) on Top
+  package(C63) at loc(94.4, -104.885, 270.0) on Top
+  package(C64) at loc(95.8, -97.7, 270.0) on Top
+  package(C65) at loc(95.8, -100.1, 270.0) on Top
+  package(C66) at loc(95.8, -102.5, 270.0) on Top
+  package(C67) at loc(95.8, -104.9, 270.0) on Top
+  package(C68) at loc(99.3, -97.715, 270.0) on Top
+  package(C69) at loc(99.3, -100.1, 270.0) on Top
+  package(C7) at loc(67.3, -91.55, 0.0) on Top
+  package(C70) at loc(99.3, -102.5, 270.0) on Top
+  package(C71) at loc(99.3, -104.9, 270.0) on Top
+  package(C72) at loc(100.7, -97.715, 270.0) on Top
+  package(C73) at loc(100.7, -100.1, 270.0) on Top
+  package(C74) at loc(100.7, -102.5, 270.0) on Top
+  package(C75) at loc(100.7, -104.9, 270.0) on Top
+  package(C76) at loc(78.6, -96.4, 180.0) on Top
+  package(C77) at loc(84.9, -95.5, 90.0) on Top
+  package(C78) at loc(79.815, -94.9, 180.0) on Top
+  package(C79) at loc(87.2, -95.5, 90.0) on Top
+  package(C8) at loc(59.15, -95.7, 0.0) on Top
+  package(C80) at loc(88.4, -95.5, 90.0) on Top
+  package(C81) at loc(80.05, -99.5, 90.0) on Top
+  package(C82) at loc(126.4, -85.9, 180.0) on Top
+  package(C83) at loc(123.0, -85.9, 0.0) on Top
+  package(C84) at loc(107.7, -89.7, 180.0) on Top
+  package(C85) at loc(90.25, -99.85, 180.0) on Top
+  package(C86) at loc(65.9, -111.9, 180.0) on Top
+  package(C87) at loc(70.0, -103.85, 0.0) on Top
+  package(C9) at loc(65.9, -93.765, 270.0) on Top
+  package(D1-1) at loc(57.15, -81.25, 0.0) on Top
+  package(D10) at loc(57.15, -109.75, 0.0) on Top
+  package(D11) at loc(80.0, -108.7, 90.0) on Top
+  package(D12) at loc(102.1, -96.2, 0.0) on Top
+  package(D13) at loc(102.1, -94.8, 0.0) on Top
+  package(D14) at loc(122.6, -110.5, 180.0) on Top
+  package(D15) at loc(122.6, -80.5, 180.0) on Top
+  package(D2-1) at loc(57.15, -83.0, 0.0) on Top
+  package(D3-1) at loc(57.15, -84.75, 0.0) on Top
+  package(D4-1) at loc(57.15, -86.5, 0.0) on Top
+  package(D5-1) at loc(57.15, -88.25, 0.0) on Top
+  package(D6-1) at loc(57.15, -102.75, 0.0) on Top
+  package(D7-1) at loc(57.15, -104.5, 0.0) on Top
+  package(D8) at loc(57.15, -106.25, 0.0) on Top
+  package(D9) at loc(57.15, -108.0, 0.0) on Top
+  package(FB1) at loc(57.7, -94.2, 0.0) on Top
+  package(FID1) at loc(58.0, -118.5, 0.0) on Top
+  package(FID2) at loc(122.0, -72.5, 0.0) on Top
+  package(FID3) at loc(122.0, -118.5, 0.0) on Top
+  package(FID4) at loc(58.0, -118.5, 0.0) on Top
+  package(FID5) at loc(122.0, -72.5, 0.0) on Top
+  package(FID6) at loc(122.0, -118.5, 0.0) on Top
+  package(FID7) at loc(65.3, -100.05, 0.0) on Top
+  package(FID8) at loc(78.6, -90.4, 0.0) on Top
+  package(J1) at loc(53.85, -95.5, 270.0) on Top
+  package(J10) at loc(105.27, -98.04, 180.0) on Top
+  package(J2) at loc(92.57, -77.77, 90.0) on Top
+  package(J3) at loc(115.43, -113.23, 270.0) on Top
+  package(J4) at loc(85.1, -108.4, 0.0) on Top
+  package(J5) at loc(72.5, -76.5, 90.0) on Top
+  package(J6) at loc(116.7, -108.5, 270.0) on Top
+  package(J7) at loc(116.7, -103.42, 270.0) on Top
+  package(J8) at loc(107.8, -82.5, 90.0) on Top
+  package(J9) at loc(107.8, -87.6, 90.0) on Top
+  package(MK1) at loc(54.0, -116.0, 0.0) on Top
+  package(MK2) at loc(54.0, -75.0, 0.0) on Top
+  package(MK3) at loc(126.0, -75.0, 0.0) on Top
+  package(MK4) at loc(126.0, -116.0, 0.0) on Top
+  package(R1) at loc(74.9, -103.8, 270.0) on Top
+  package(R10) at loc(92.2, -97.8, 180.0) on Top
+  package(R11) at loc(60.185, -103.0, 180.0) on Top
+  package(R12) at loc(60.2, -82.8, 180.0) on Top
+  package(R13) at loc(60.2, -84.1, 180.0) on Top
+  package(R14) at loc(60.2, -85.4, 180.0) on Top
+  package(R15) at loc(60.2, -86.7, 180.0) on Top
+  package(R16) at loc(60.2, -88.0, 180.0) on Top
+  package(R17) at loc(76.4, -90.3, 0.0) on Top
+  package(R18) at loc(126.1, -87.6, 0.0) on Top
+  package(R19) at loc(126.1, -101.4, 0.0) on Top
+  package(R2) at loc(74.9, -105.9, 90.0) on Top
+  package(R20) at loc(60.185, -104.3, 180.0) on Top
+  package(R21) at loc(60.185, -105.6, 180.0) on Top
+  package(R22) at loc(60.2, -106.9, 180.0) on Top
+  package(R23) at loc(60.2, -108.2, 180.0) on Top
+  package(R24) at loc(118.6, -82.5, 270.0) on Top
+  package(R25) at loc(118.6, -108.5, 90.0) on Top
+  package(R26) at loc(119.6, -108.5, 270.0) on Top
+  package(R27) at loc(120.5, -101.615, 270.0) on Top
+  package(R28) at loc(120.5, -103.785, 270.0) on Top
+  package(R29) at loc(119.4, -103.8, 90.0) on Top
+  package(R3) at loc(55.4, -99.9, 0.0) on Top
+  package(R30) at loc(119.6, -82.5, 90.0) on Top
+  package(R31) at loc(77.9, -97.6, 180.0) on Top
+  package(R32) at loc(89.85, -95.75, 90.0) on Top
+  package(R33) at loc(120.5, -89.4, 90.0) on Top
+  package(R34) at loc(120.5, -87.2, 90.0) on Top
+  package(R35) at loc(119.4, -87.2, 270.0) on Top
+  package(R36) at loc(117.85, -98.8, 90.0) on Top
+  package(R37) at loc(107.55, -92.2, 270.0) on Top
+  package(R38) at loc(80.2, -111.0, 270.0) on Top
+  package(R39) at loc(97.615, -96.1, 180.0) on Top
+  package(R4) at loc(62.3, -116.4, 180.0) on Top
+  package(R40) at loc(79.0, -116.5, 270.0) on Top
+  package(R41) at loc(107.55, -98.8, 270.0) on Top
+  package(R42) at loc(117.85, -92.2, 90.0) on Top
+  package(R43) at loc(97.615, -94.9, 180.0) on Top
+  package(R44) at loc(79.2, -111.0, 90.0) on Top
+  package(R45) at loc(90.45, -101.15, 180.0) on Top
+  package(R46) at loc(121.4, -112.2, 90.0) on Top
+  package(R47) at loc(121.4, -78.8, 270.0) on Top
+  package(R48) at loc(122.45, -104.15, 270.0) on Top
+  package(R49) at loc(122.45, -86.85, 90.0) on Top
+  package(R5) at loc(60.315, -116.4, 0.0) on Top
+  package(R50) at loc(120.95, -104.15, 270.0) on Top
+  package(R51) at loc(120.95, -86.85, 90.0) on Top
+  package(R6) at loc(60.315, -115.4, 180.0) on Top
+  package(R7) at loc(63.7, -115.0, 270.0) on Top
+  package(R8) at loc(63.7, -109.9, 270.0) on Top
+  package(R9) at loc(75.5, -100.2, 0.0) on Top
+  package(RN1) at loc(90.85, -91.5, 0.0) on Top
+  package(RN2) at loc(112.2, -106.0, 90.0) on Top
+  package(RN3) at loc(89.2, -103.85, 0.0) on Top
+  package(RN4) at loc(104.5, -105.4, 270.0) on Top
+  package(RN5) at loc(104.5, -85.6, 90.0) on Top
+  package(RN6) at loc(112.2, -85.0, 270.0) on Top
+  package(TP1) at loc(94.7, -109.0, 0.0) on Top
+  package(TP10) at loc(88.3, -116.0, 0.0) on Top
+  package(TP11) at loc(88.3, -113.5, 0.0) on Top
+  package(TP12) at loc(88.3, -111.0, 0.0) on Top
+  package(TP13) at loc(55.5, -93.1, 0.0) on Top
+  package(TP14) at loc(55.5, -97.6, 0.0) on Top
+  package(TP15) at loc(55.5, -96.1, 0.0) on Top
+  package(TP16) at loc(55.5, -94.6, 0.0) on Top
+  package(TP17) at loc(70.65, -111.2, 0.0) on Top
+  package(TP18) at loc(120.9, -101.35, 0.0) on Top
+  package(TP19) at loc(120.9, -89.65, 0.0) on Top
+  package(TP2) at loc(77.3, -101.4, 0.0) on Top
+  package(TP3) at loc(94.7, -107.3, 0.0) on Top
+  package(TP4) at loc(76.4, -103.3, 0.0) on Top
+  package(TP5) at loc(76.4, -105.0, 0.0) on Top
+  package(TP6) at loc(73.1, -89.0, 0.0) on Top
+  package(TP7) at loc(63.7, -100.2, 0.0) on Top
+  package(TP8) at loc(81.5, -116.0, 0.0) on Top
+  package(TP9) at loc(81.5, -111.0, 0.0) on Top
+  package(U1) at loc(69.85, -95.5, 0.0) on Top
+  package(U10) at loc(95.2, -92.9, 0.0) on Top
+  package(U11) at loc(100.1, -85.7, 0.0) on Top
+  package(U12) at loc(124.5, -107.9, 0.0) on Top
+  package(U13) at loc(123.2, -98.6, 180.0) on Top
+  package(U14) at loc(123.2, -102.4, 180.0) on Top
+  package(U15) at loc(59.6, -98.1, 270.0) on Top
+  package(U16) at loc(100.1, -88.1, 0.0) on Top
+  package(U17) at loc(100.1, -90.5, 0.0) on Top
+  package(U18) at loc(100.1, -92.9, 0.0) on Top
+  package(U19) at loc(112.7, -92.2, 0.0) on Top
+  package(U2) at loc(74.9, -109.6, 180.0) on Top
+  package(U20) at loc(123.2, -92.4, 180.0) on Top
+  package(U21) at loc(124.5, -83.1, 0.0) on Top
+  package(U22) at loc(95.2, -98.1, 0.0) on Top
+  package(U23) at loc(95.2, -100.5, 0.0) on Top
+  package(U24) at loc(95.2, -102.9, 0.0) on Top
+  package(U25) at loc(95.2, -105.3, 0.0) on Top
+  package(U26) at loc(100.1, -98.1, 0.0) on Top
+  package(U27) at loc(100.1, -100.5, 0.0) on Top
+  package(U28) at loc(100.1, -102.9, 0.0) on Top
+  package(U29) at loc(100.1, -105.3, 0.0) on Top
+  package(U3) at loc(74.9, -115.3, 180.0) on Top
+  package(U30) at loc(83.7, -95.5, 270.0) on Top
+  package(U31) at loc(123.2, -88.6, 180.0) on Top
+  package(U32) at loc(90.75, -99.6, 0.0) on Top
+  package(U33) at loc(103.5, -108.7, 0.0) on Top
+  package(U34) at loc(83.8, -105.3, 0.0) on Top
+  package(U35) at loc(103.5, -82.3, 180.0) on Top
+  package(U36) at loc(65.9, -109.9, 180.0) on Top
+  package(U4) at loc(95.2, -85.7, 0.0) on Top
+  package(U5) at loc(112.7, -98.8, 180.0) on Top
+  package(U6) at loc(95.2, -88.1, 0.0) on Top
+  package(U7) at loc(60.7, -113.1, 0.0) on Top
+  package(U8) at loc(65.9, -115.0, 180.0) on Top
+  package(U9) at loc(95.2, -90.5, 0.0) on Top
+  package(Y1) at loc(61.6, -92.6, 0.0) on Top
+
+  net Net-RN1-Pad13 (RN1.R4[2], U16.A)
+  net IO-Banks/IO-Buffer-A/VSENSE (J2.Pin-1, R24.p[2], U35.p[9])
+  net Net-J9-Pad6 (J9.Pin-6, RN6.R3[2], U19.p[10])
+  net SDA (R1.p[1], TP10.p[1], TP4.p[1], U1.SDA, U12.SDA, U13.FLAG3, U19.p[15], U2.SDA, U20.FLAG3, U21.SDA, U3.SDA, U30.IOB-91, U34.p[5], U5.p[15])
+  net Net-RN1-Pad11 (RN1.R6[2], U17.A)
+  net IO-Banks/VIOB (C29.p[1], C46.p[1], C53.p[1], C64.p[1], C65.p[1], C66.p[1], C67.p[1], C72.p[1], C73.p[1], C74.p[1], C75.p[1], J3.Pin-2, R28.p[2], R41.p[2], R48.p[2], R50.p[2], U22.VCCB, U23.VCCB, U24.VCCB, U25.VCCB, U26.VCCB, U27.VCCB, U28.VCCB, U29.VCCB, U33.p[3], U33.p[6], U5.p[16], U5.p[2])
+  net Net-J9-Pad7 (J9.Pin-7, RN6.R2[2], U19.p[11])
+  net +3V3 (C1.p[1], C10.p[1], C15.p[1], C16.p[1], C17.p[1], C19.p[1], C2.p[1], C20.p[1], C21.p[1], C22.p[1], C23.p[1], C28.p[1], C3.p[1], C30.p[1], C32.p[1], C34.p[1], C35.p[1], C36.p[1], C37.p[1], C4.p[1], C42.p[1], C43.p[1], C47.p[1], C48.p[1], C5.p[1], C55.p[1], C56.p[1], C6.p[1], C60.p[1], C61.p[1], C62.p[1], C63.p[1], C68.p[1], C69.p[1], C7.p[1], C70.p[1], C71.p[1], C81.p[1], C84.p[1], C85.p[1], C9.p[1], J5.Pin-2, R1.p[2], R12.p[1], R17.p[2], R2.p[2], R36.p[2], R37.p[2], R4.p[2], R40.p[2], R44.p[2], TP3.p[1], TP9.p[1], U1.AVCC, U1.VCC, U1.WAKEUP, U10.VCCA, U11.VCCA, U12.VA, U13.GND, U16.VCCA, U17.VCCA, U18.VCCA, U19.p[1], U2.A1, U2.VCC, U20.GND, U21.VA, U22.VCCA, U23.VCCA, U24.VCCA, U25.VCCA, U26.VCCA, U27.VCCA, U28.VCCA, U29.VCCA, U3.NC, U3.VCC, U30.VCC-SPI, U30.VCCIO-0, U30.VCCIO-1, U30.VCCIO-2, U30.VPP-2V5, U32.VCCA, U32.VCCB, U34.p[8], U4.VCCA, U5.p[1], U6.VCCA, U8.p[1], U8.p[2], U9.VCCA)
+  net Net-RN1-Pad12 (RN1.R5[2], U9.A)
+  net IO-Banks/VIOA (C38.p[1], C39.p[1], C40.p[1], C41.p[1], C49.p[1], C50.p[1], C51.p[1], C52.p[1], C54.p[1], C57.p[1], C83.p[1], J2.Pin-2, R34.p[2], R42.p[2], R49.p[2], R51.p[2], U10.VCCB, U11.VCCB, U16.VCCB, U17.VCCB, U18.VCCB, U19.p[16], U35.p[3], U35.p[6], U4.VCCB, U6.VCCB, U9.VCCB)
+  net Net-J9-Pad1 (J9.Pin-1, RN6.R8[2], U19.p[4])
+  net GND (C1.p[2], C10.p[2], C11.p[2], C12.p[2], C13.p[2], C14.p[2], C15.p[2], C16.p[2], C17.p[2], C18.p[2], C19.p[2], C2.p[2], C20.p[2], C21.p[2], C22.p[2], C23.p[2], C24.p[2], C25.p[2], C26.p[1], C27.p[2], C28.p[2], C29.p[2], C3.p[2], C30.p[2], C31.p[2], C32.p[2], C33.p[2], C34.p[2], C35.p[2], C36.p[2], C37.p[2], C38.p[2], C39.p[2], C4.p[2], C40.p[2], C41.p[2], C42.p[2], C43.p[2], C44.p[2], C45.p[2], C46.p[2], C47.p[2], C48.p[2], C49.p[2], C5.p[2], C50.p[2], C51.p[2], C52.p[2], C53.p[2], C54.p[2], C55.p[2], C56.p[2], C57.p[2], C58.p[2], C59.p[2], C6.p[2], C60.p[2], C61.p[2], C62.p[2], C63.p[2], C64.p[2], C65.p[2], C66.p[2], C67.p[2], C68.p[2], C69.p[2], C7.p[2], C70.p[2], C71.p[2], C72.p[2], C73.p[2], C74.p[2], C75.p[2], C77.p[2], C8.p[2], C81.p[2], C82.p[2], C83.p[2], C84.p[2], C85.p[2], C86.p[1], C87.p[2], C9.p[2], D1-1.K, D10.K, D11.A, D12.A, D13.A, D14.K, D15.K, D2-1.K, D3-1.K, D4-1.K, D5-1.K, D6-1.K, D7-1.K, D8.K, D9.K, J1.p[5], J10.Pin-1, J2.Pin-10, J2.Pin-12, J2.Pin-14, J2.Pin-16, J2.Pin-18, J2.Pin-4, J2.Pin-6, J2.Pin-8, J3.Pin-10, J3.Pin-12, J3.Pin-14, J3.Pin-16, J3.Pin-18, J3.Pin-4, J3.Pin-6, J3.Pin-8, J4.Pin-1, J5.Pin-1, J5.Pin-12, J5.Pin-13, J5.Pin-18, J5.Pin-19, J5.Pin-24, J5.Pin-25, J5.Pin-30, J5.Pin-31, J5.Pin-36, J5.Pin-37, J5.Pin-4, J5.Pin-42, J5.Pin-43, J5.Pin-6, J5.Pin-7, MK1.p[1], MK2.p[1], MK3.p[1], MK4.p[1], R10.p[2], R18.p[2], R19.p[2], R26.p[1], R29.p[1], R3.p[2], R30.p[1], R35.p[1], R41.p[1], R42.p[1], R6.p[1], R9.p[1], TP12.p[1], TP14.p[1], U1.AGND, U1.EP, U1.GND, U1.RESERVED, U10.GND, U11.GND, U12.ADR0, U12.ADR1, U12.GND, U13.EN, U13.FLAG1, U14.GND, U15.GND, U16.GND, U17.GND, U18.GND, U19.p[2], U19.p[8], U2.GND, U20.EN, U21.ADR1, U21.GND, U22.GND, U23.GND, U24.GND, U25.GND, U26.GND, U27.GND, U28.GND, U29.GND, U3.GND, U30.GND, U31.GND, U32.GND, U33.p[12], U33.p[18], U34.p[4], U34.p[9], U35.p[12], U35.p[18], U36.p[3], U36.p[7], U4.GND, U5.p[8], U6.GND, U7.GND, U8.p[3], U8.p[7], U9.GND, Y1.p[2], Y1.p[4])
+  net Net-RN1-Pad10 (RN1.R7[2], U10.A)
+  net IO-Banks/U2 (R20.p[1], U30.IOR-118)
+  net Net-J9-Pad8 (J9.Pin-8, RN6.R1[2], U19.p[12])
+  net SCL (R2.p[1], TP11.p[1], TP5.p[1], U1.SCL, U12.SCL, U13.FLAG2, U19.p[14], U2.SCL, U20.FLAG2, U21.SCL, U3.SCL, U30.IOB-104-CBSEL1, U34.p[6], U5.p[14])
+  net VCCPLL1 (C79.p[1], C80.p[1], R32.p[1], U30.VCCPLL1)
+  net IO-Banks/IO-Buffer-B/VSAMP (C44.p[1], R25.p[1], R26.p[2], U12.VIN)
+  net IO-Banks/IO-Buffer-B/VFB (R27.p[2], R28.p[1], R29.p[2], U14.FB)
+  net +5V (C26.p[2], C31.p[1], C45.p[1], C59.p[1], C82.p[1], C86.p[2], C87.p[1], R5.p[2], R7.p[2], R8.p[2], TP1.p[1], TP8.p[1], U14.IN, U15.FLAG3, U31.IN, U36.p[5], U36.p[6], U7.VCC, U8.p[5], U8.p[6])
+  net VCCPLL0 (C76.p[1], C78.p[1], R31.p[1], U30.VCCPLL0)
+  net IO-Banks/IO-Buffer-B/VSENSE (J3.Pin-1, R25.p[2], U33.p[9])
+  net IO-Banks/IO-Buffer-A/VFB (R33.p[2], R34.p[1], R35.p[2], U31.FB)
+  net ~CY-RESET (R4.p[1], U1.nRESET, U7.FLAG3)
+  net GNDPLL1 (C79.p[2], C80.p[2], U30.GNDPLL1)
+  net IO-Banks/U5 (R23.p[1], U30.IOR-146)
+  net IO-Banks/~SYNC (D11.K, J4.Pin-2, R38.p[1], R44.p[1])
+  net SHLD (C13.p[1], J1.p[6], R3.p[1])
+  net GNDPLL0 (C76.p[2], C78.p[2], U30.GNDPLL0)
+  net IO-Banks/U4 (R22.p[1], U30.IOR-147)
+  net Net-R40-Pad1 (R40.p[1], U3.A1)
+  net USB-P (J1.p[3], TP15.p[1], U1.D+, U15.FLAG1)
+  net Net-D6-Pad2 (D6-1.A, R11.p[2])
+  net IO-Banks/U3 (R21.p[1], U30.IOR-144)
+  net Net-FB1-Pad1 (FB1.p[1], J1.p[1], TP13.p[1])
+  net XTALOUT (C11.p[1], U1.XTALOUT, Y1.p[3])
+  net Net-D10-Pad2 (D10.A, R23.p[2])
+  net IO-Banks/Z0-P (J5.Pin-39, U30.IOL-2A)
+  net Net-R37-Pad1 (R37.p[1], U19.p[3])
+  net XTALIN (C12.p[1], U1.XTALIN, Y1.p[1])
+  net Net-D9-Pad2 (D9.A, R22.p[2])
+  net IO-Banks/Z2-N (J5.Pin-33, U30.IOL-5B)
+  net Net-R36-Pad1 (R36.p[1], U5.p[3])
+  net USB-N (J1.p[2], TP16.p[1], U1.D-, U15.FLAG2)
+  net Net-D8-Pad2 (D8.A, R21.p[2])
+  net IO-Banks/Z3-N (J5.Pin-29, U30.IOL-8B)
+  net Net-R10-Pad1 (R10.p[1], U30.IOT-219, U32.DIR)
+  net D0 (U1.FD0, U30.IOB-87)
+  net Net-D7-Pad2 (D7-1.A, R20.p[2])
+  net IO-Banks/Z3-P (J5.Pin-27, U30.IOL-8A)
+  net Net-R39-Pad2 (R39.p[2], U30.IOT-170)
+  net D1 (U1.FD1, U30.IOB-86)
+  net Net-R33-Pad1 (R33.p[1], TP19.p[1], U20.VCC)
+  net IO-Banks/Z6-P (J5.Pin-21, U30.IOL-12A)
+  net Net-R43-Pad2 (R43.p[2], U30.IOT-172)
+  net D2 (U1.FD2, U30.IOB-106-SDI)
+  net IO-Banks/IO-Buffer-B/Y0 (RN4.R1[1], U22.B)
+  net IO-Banks/Z8-P (J5.Pin-15, U30.IOL-14A-GBIN6)
+  net Net-R38-Pad2 (R38.p[2], U32.B)
+  net D3 (U1.FD3, U30.IOB-108-SS)
+  net IO-Banks/IO-Buffer-B/Z0 (J3.Pin-3, J6.Pin-1, RN2.R8[1], RN4.R1[2], U33.p[11])
+  net IO-Banks/Z10-P (J5.Pin-9, U30.IOL-18A)
+  net Net-D12-Pad1 (D12.K, J10.Pin-2, R39.p[1])
+  net D4 (U1.FD4, U30.IOB-107-SCK)
+  net IO-Banks/IO-Buffer-B/Y7 (RN4.R8[1], U29.B)
+  net IO-Banks/Z11-P (J5.Pin-5, U30.IOL-23A)
+  net Net-D13-Pad1 (D13.K, J10.Pin-3, R43.p[1])
+  net D5 (U1.FD5, U30.IOB-105-SDO)
+  net IO-Banks/IO-Buffer-B/Z7 (J3.Pin-17, J6.Pin-8, RN2.R1[1], RN4.R8[2], U33.p[1])
+  net IO-Banks/Z11-N (J5.Pin-3, U30.IOL-23B)
+  net Net-R45-Pad2 (R45.p[2], U30.IOT-168)
+  net D6 (U1.FD6, U30.IOB-103-CBSEL0)
+  net IO-Banks/IO-Buffer-B/Y1 (RN4.R2[1], U26.B)
+  net IO-Banks/Z0-N (J5.Pin-41, U30.IOL-2B)
+  net Net-R45-Pad1 (R45.p[1], U32.A)
+  net D7 (U1.FD7, U30.IOB-89)
+  net IO-Banks/IO-Buffer-B/Y2 (RN4.R3[1], U23.B)
+  net IO-Banks/Z2-P (J5.Pin-35, U30.IOL-5A)
+  net Net-D14-Pad2 (D14.A, R46.p[2])
+  net FLAGA (U1.FLAGA, U30.IOB-94)
+  net IO-Banks/IO-Buffer-B/Y3 (RN4.R4[1], U27.B)
+  net IO-Banks/Z4-P (J5.Pin-32, U30.IOL-9A)
+  net Net-D15-Pad2 (D15.A, R47.p[2])
+  net FLAGB (U1.FLAGB, U30.IOB-79)
+  net IO-Banks/IO-Buffer-B/Y4 (RN4.R5[1], U24.B)
+  net IO-Banks/Z5-P (J5.Pin-28, U30.IOL-10A)
+  net FLAGC (U1.FLAGC, U30.IOB-72)
+  net IO-Banks/IO-Buffer-B/Y5 (RN4.R6[1], U28.B)
+  net IO-Banks/Z6-N (J5.Pin-23, U30.IOL-12B)
+  net OE (U1.SLOE, U30.IOB-71)
+  net IO-Banks/IO-Buffer-B/Y6 (RN4.R7[1], U25.B)
+  net IO-Banks/Z8-N (J5.Pin-17, U30.IOL-14B)
+  net A0 (U1.FIOADDR0, U30.IOB-63)
+  net IO-Banks/IO-Buffer-B/Z1 (J3.Pin-5, J6.Pin-2, RN2.R7[1], RN4.R2[2], U33.p[10])
+  net IO-Banks/Z10-N (J5.Pin-11, U30.IOL-18B)
+  net A1 (U1.FIOADDR1, U30.IOB-61)
+  net IO-Banks/IO-Buffer-B/Z2 (J3.Pin-7, J6.Pin-3, RN2.R6[1], RN4.R3[2], U33.p[8])
+  net IO-Banks/Z12-N (J5.Pin-10, U30.IOL-25B)
+  net PKTEND (U1.PKTEND, U30.IOB-56)
+  net IO-Banks/IO-Buffer-B/Z3 (J3.Pin-9, J6.Pin-4, RN2.R5[1], RN4.R4[2], U33.p[7])
+  net IO-Banks/Z12-P (J5.Pin-8, U30.IOL-25A)
+  net Net-R48-Pad1 (R48.p[1], R50.p[1], U14.OUT)
+  net FPGA-DONE (U1.WU2, U30.CDONE)
+  net IO-Banks/IO-Buffer-B/Z5 (J3.Pin-13, J6.Pin-6, RN2.R3[1], RN4.R6[2], U33.p[4])
+  net IO-Banks/Z1-N (J5.Pin-38, U30.IOL-4B)
+  net Net-R49-Pad1 (R49.p[1], R51.p[1], U31.OUT)
+  net ~FPGA-RESET (R9.p[2], U1.nINT1, U30.nCRESET)
+  net IO-Banks/IO-Buffer-B/Z4 (J3.Pin-11, J6.Pin-5, RN2.R4[1], RN4.R5[2], U33.p[5])
+  net IO-Banks/Z4-N (J5.Pin-34, U30.IOL-9B)
+  net +1V2 (C14.p[1], C18.p[1], C24.p[1], C25.p[1], C27.p[1], C77.p[1], R31.p[2], R32.p[2], TP17.p[1], TP2.p[1], U30.VCC, U36.p[1], U36.p[2])
+  net IO-Banks/IO-Buffer-B/Z6 (J3.Pin-15, J6.Pin-7, RN2.R2[1], RN4.R7[2], U33.p[2])
+  net IO-Banks/Z5-N (J5.Pin-26, U30.IOL-10B)
+  net Net-1V2EN (R8.p[1], U36.p[4], U7.FLAG1)
+  net IO-Banks/IO-Buffer-A/Y0 (RN5.R1[1], U4.B)
+  net IO-Banks/Z7-N (J5.Pin-20, U30.IOL-13B-GBIN7)
+  net Net-3V3EN (R7.p[1], U7.FLAG2, U8.p[4])
+  net IO-Banks/IO-Buffer-A/Z0 (J2.Pin-3, J8.Pin-1, RN5.R1[2], RN6.R8[1], U35.p[11])
+  net IO-Banks/Z9-P (J5.Pin-16, U30.IOL-17A)
+  net PGOOD (R5.p[1], R6.p[2], U7.EN)
+  net IO-Banks/IO-Buffer-A/Y7 (RN5.R8[1], U18.B)
+  net IO-Banks/Z9-N (J5.Pin-14, U30.IOL-17B)
+  net CLKIF (TP7.p[1], U1.IFCLK, U30.IOB-82-GBIN4)
+  net IO-Banks/IO-Buffer-A/Z7 (J2.Pin-17, J8.Pin-8, RN5.R8[2], RN6.R1[1], U35.p[1])
+  net IO-Banks/Z1-P (J5.Pin-40, U30.IOL-4A)
+  net FLAGD (U1.nSLCS, U30.IOB-57)
+  net IO-Banks/IO-Buffer-A/Y1 (RN5.R2[1], U11.B)
+  net IO-Banks/VIO-AUX (C33.p[1], J5.Pin-44, U30.VCCIO-3)
+  net VUSB (C8.p[1], FB1.p[2], U15.EN, U15.VCC)
+  net IO-Banks/IO-Buffer-A/Y2 (RN5.R3[1], U6.B)
+  net IO-Banks/Z7-P (J5.Pin-22, U30.IOL-13A)
+  net LED-CY (R13.p[1], U1.FD10)
+  net IO-Banks/IO-Buffer-A/Y3 (RN5.R4[1], U16.B)
+  net IO-Banks/DA0 (U30.IOT-191, U4.DIR)
+  net Net-D2-Pad2 (D2-1.A, R13.p[2])
+  net IO-Banks/IO-Buffer-A/Y4 (RN5.R5[1], U9.B)
+  net IO-Banks/DA4 (U30.IOT-177, U9.DIR)
+  net Net-D5-Pad2 (D5-1.A, R16.p[2])
+  net IO-Banks/IO-Buffer-A/Y5 (RN5.R6[1], U17.B)
+  net IO-Banks/DA6 (U10.DIR, U30.IOT-174)
+  net LED-ERR (R16.p[1], U1.FD13)
+  net IO-Banks/IO-Buffer-A/Y6 (RN5.R7[1], U10.B)
+  net IO-Banks/DA1 (U11.DIR, U30.IOT-179)
+  net LED-ACT (R15.p[1], U1.FD12)
+  net IO-Banks/IO-Buffer-A/Z1 (J2.Pin-5, J8.Pin-2, RN5.R2[2], RN6.R7[1], U35.p[10])
+  net IO-Banks/DA3 (U16.DIR, U30.IOT-192)
+  net Net-D4-Pad2 (D4-1.A, R15.p[2])
+  net IO-Banks/IO-Buffer-A/Z2 (J2.Pin-7, J8.Pin-3, RN5.R3[2], RN6.R6[1], U35.p[8])
+  net IO-Banks/DA5 (U17.DIR, U30.IOT-190)
+  net Net-D3-Pad2 (D3-1.A, R14.p[2])
+  net IO-Banks/IO-Buffer-A/Z3 (J2.Pin-9, J8.Pin-4, RN5.R4[2], RN6.R5[1], U35.p[7])
+  net IO-Banks/DA7 (U18.DIR, U30.IOT-178)
+  net LED-FPGA (R14.p[1], U1.FD11)
+  net IO-Banks/IO-Buffer-A/Z5 (J2.Pin-13, J8.Pin-6, RN5.R6[2], RN6.R3[1], U35.p[4])
+  net IO-Banks/DB0 (U22.DIR, U30.IOR-137)
+  net Net-D1-Pad2 (D1-1.A, R12.p[2])
+  net IO-Banks/IO-Buffer-A/Z4 (J2.Pin-11, J8.Pin-5, RN5.R5[2], RN6.R4[1], U35.p[5])
+  net IO-Banks/DB4 (U24.DIR, U30.IOR-116)
+  net ~ALERT (R17.p[1], U1.nINT0, U12.ALERT, U21.ALERT, U30.IOB-73)
+  net IO-Banks/IO-Buffer-A/Z6 (J2.Pin-15, J8.Pin-7, RN5.R7[2], RN6.R2[1], U35.p[2])
+  net IO-Banks/DB6 (U25.DIR, U30.IOR-117)
+  net Net-R27-Pad1 (R27.p[1], TP18.p[1], U13.VCC)
+  net IO-Banks/QB6 (RN3.R7[1], U30.IOR-140-GBIN3)
+  net IO-Banks/DB1 (U26.DIR, U30.IOR-129)
+  net CLKREF (TP6.p[1], U1.CLKOUT, U30.IOB-81-GBIN5, U30.IOT-212)
+  net IO-Banks/QB5 (RN3.R6[1], U30.IOR-148)
+  net IO-Banks/DB3 (U27.DIR, U30.IOR-119)
+  net ENVB (R19.p[1], R46.p[1], U1.FD14, U14.EN)
+  net IO-Banks/QB4 (RN3.R5[1], U30.IOR-141-GBIN2)
+  net IO-Banks/DB5 (U28.DIR, U30.IOR-114)
+  net ENVA (R18.p[1], R47.p[1], U1.FD8, U31.EN)
+  net IO-Banks/QB3 (RN3.R4[1], U30.IOR-152)
+  net IO-Banks/DB7 (U29.DIR, U30.IOR-115)
+  net WR (U1.SLWR, U30.IOB-64)
+  net IO-Banks/QB2 (RN3.R3[1], U30.IOR-154)
+  net IO-Banks/DA2 (U30.IOT-181, U6.DIR)
+  net RD (U1.SLRD, U30.IOB-78)
+  net IO-Banks/QB1 (RN3.R2[1], U30.IOR-160)
+  net IO-Banks/DB2 (U23.DIR, U30.IOR-120)
+  net Net-RN3-Pad10 (RN3.R7[2], U25.A)
+  net IO-Banks/QB7 (RN3.R8[1], U30.IOR-136)
+  net Net-J7-Pad2 (J7.Pin-2, RN2.R7[2], U5.p[5])
+  net Net-RN3-Pad12 (RN3.R5[2], U24.A)
+  net IO-Banks/QB0 (RN3.R1[1], U30.IOR-161)
+  net Net-J7-Pad4 (J7.Pin-4, RN2.R5[2], U5.p[7])
+  net Net-RN3-Pad11 (RN3.R6[2], U28.A)
+  net IO-Banks/QA0 (RN1.R1[1], U30.IOT-225)
+  net Net-J7-Pad3 (J7.Pin-3, RN2.R6[2], U5.p[6])
+  net Net-RN3-Pad13 (RN3.R4[2], U27.A)
+  net IO-Banks/QA7 (RN1.R8[1], U30.IOT-207)
+  net Net-J7-Pad5 (J7.Pin-5, RN2.R4[2], U5.p[9])
+  net Net-RN3-Pad14 (RN3.R3[2], U23.A)
+  net IO-Banks/QA1 (RN1.R2[1], U30.IOT-222)
+  net Net-J7-Pad6 (J7.Pin-6, RN2.R3[2], U5.p[10])
+  net Net-RN3-Pad15 (RN3.R2[2], U26.A)
+  net IO-Banks/QA2 (RN1.R3[1], U30.IOT-221)
+  net Net-J7-Pad7 (J7.Pin-7, RN2.R2[2], U5.p[11])
+  net Net-RN3-Pad9 (RN3.R8[2], U29.A)
+  net IO-Banks/QA3 (RN1.R4[1], U30.IOT-223)
+  net Net-J7-Pad1 (J7.Pin-1, RN2.R8[2], U5.p[4])
+  net Net-RN3-Pad16 (RN3.R1[2], U22.A)
+  net IO-Banks/QA4 (RN1.R5[1], U30.IOT-198-GBIN0, U30.IOT-208)
+  net Net-J7-Pad8 (J7.Pin-8, RN2.R1[2], U5.p[12])
+  net Net-RN1-Pad16 (RN1.R1[2], U4.A)
+  net IO-Banks/QA5 (RN1.R6[1], U30.IOT-211)
+  net Net-J9-Pad2 (J9.Pin-2, RN6.R7[2], U19.p[5])
+  net Net-RN1-Pad9 (RN1.R8[2], U18.A)
+  net IO-Banks/QA6 (RN1.R7[1], U30.IOT-197-GBIN1, U30.IOT-206)
+  net Net-J9-Pad4 (J9.Pin-4, RN6.R5[2], U19.p[7])
+  net Net-RN1-Pad15 (RN1.R2[2], U11.A)
+  net IO-Banks/IO-Buffer-A/VSAMP (C58.p[1], R24.p[1], R30.p[2], U21.VIN)
+  net Net-J9-Pad3 (J9.Pin-3, RN6.R6[2], U19.p[6])
+  net Net-RN1-Pad14 (RN1.R3[2], U6.A)
+  net IO-Banks/U1 (R11.p[1], U30.IOR-128)
+  net Net-J9-Pad5 (J9.Pin-5, RN6.R4[2], U19.p[9])
+  
+  symbol(GND) = ground-sym
+
+val main-design = default-board(glasgow, 4, 10.0, 10.0)
+
+view(main-design)
+
+export-kicad("glasgow",
+            [`place            => true 
+            `gen-board         => true 
+            `gen-schematic     => true 
+            `fresh             => true 
+            `schematic-version => 4
+            `param-configs     => [`sketch]])

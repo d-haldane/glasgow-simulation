@@ -1,0 +1,66 @@
+#use-added-syntax(esir)
+defpackage glasgow/Conn_01x03 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package pinheader-1x03-p2-54mm-vertical :
+  pad p[1] : {rect-pth-pad(0.5, 1.7, 1.7)} at loc(0.0, 0.0, 0.0)
+  pad p[2] : {oval-pth-pad(0.5, 1.7, 1.7)} at loc(0.0, -2.54, 0.0)
+  pad p[3] : {oval-pth-pad(0.5, 1.7, 1.7)} at loc(0.0, -5.08, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, 1.33), Point(0.0, 1.33) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, 0.0), Point(-1.33, 1.33) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, -1.27), Point(1.33, -1.27) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.33, -1.27), Point(1.33, -6.41) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, -1.27), Point(-1.33, -6.41) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, -6.41), Point(1.33, -6.41) ])
+  ref-label()
+
+pcb-symbol Conn_01x03-symbol :
+  pin Pin-1 at Point(-1.27, 2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-2 at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-3 at Point(-1.27, -2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 2.54))
+  layer("foreground") = Rectangle(2.54, 7.62, loc(0.0, 0.0))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 0.0))
+
+public pcb-component Conn_01x03 :
+  pin Pin-1
+  pin Pin-2
+  pin Pin-3
+  package = pinheader-1x03-p2-54mm-vertical(Pin-1 => p[1], Pin-2 => p[2], Pin-3 => p[3])
+  symbol = Conn_01x03-symbol(Pin-1 => Pin-1, Pin-2 => Pin-2, Pin-3 => Pin-3)
+
+  name = "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
+  description = "Through hole straight pin header, 1x03, 2.54mm pitch, single row"
+  reference-prefix = "J"
+  mpn = "Conn_01x03"

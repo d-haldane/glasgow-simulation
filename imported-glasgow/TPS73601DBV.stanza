@@ -1,0 +1,73 @@
+#use-added-syntax(esir)
+defpackage glasgow/TPS73601DBV :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package sot-23-5 :
+  pad p[1] : {smd-pad(1.06, 0.65)} at loc(-1.1, 0.95, 0.0)
+  pad p[2] : {smd-pad(1.06, 0.65)} at loc(-1.1, 0.0, 0.0)
+  pad p[3] : {smd-pad(1.06, 0.65)} at loc(-1.1, -0.95, 0.0)
+  pad p[4] : {smd-pad(1.06, 0.65)} at loc(1.1, -0.95, 0.0)
+  pad p[5] : {smd-pad(1.06, 0.65)} at loc(1.1, 0.95, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.9, 1.61), Point(-1.55, 1.61) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.9, -1.61), Point(0.9, -1.61) ])
+  ref-label()
+
+pcb-symbol TPS73601DBV-symbol :
+  pin IN at Point(-7.62, 2.54) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin GND at Point(0.0, -5.08) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin EN at Point(-7.62, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FB at Point(7.62, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin OUT at Point(7.62, 2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(15.24, 10.16, loc(0.0, 0.0))
+
+public pcb-component TPS73601DBV :
+  pin EN
+  pin FB
+  pin IN
+  pin GND
+  pin OUT
+  package = sot-23-5(EN => p[3], FB => p[4], IN => p[1], GND => p[2], OUT => p[5])
+  symbol = TPS73601DBV-symbol(EN => EN, FB => FB, IN => IN, GND => GND, OUT => OUT)
+
+  name = "Package_TO_SOT_SMD:SOT-23-5"
+  description = "5-pin SOT23 package"
+  reference-prefix = "U"
+  mpn = "TPS73601DBV"

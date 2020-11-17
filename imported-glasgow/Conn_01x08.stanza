@@ -1,0 +1,108 @@
+#use-added-syntax(esir)
+defpackage glasgow/Conn_01x08 :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package pinsocket-1x08-p1-27mm-vertical :
+  pad p[1] : {rect-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, 0.0, 0.0)
+  pad p[2] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -1.27, 0.0)
+  pad p[3] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -2.54, 0.0)
+  pad p[4] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -3.81, 0.0)
+  pad p[5] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -5.08, 0.0)
+  pad p[6] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -6.35, 0.0)
+  pad p[7] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -7.62, 0.0)
+  pad p[8] : {oval-pth-pad(0.35, 1.0, 1.0)} at loc(0.0, -8.89, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.0, 0.76), Point(1.33, 0.76) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.33, 0.76), Point(1.33, 0.0) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.33, -0.635), Point(1.33, -9.585) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.30753, -9.585), Point(1.33, -9.585) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, -9.585), Point(-0.30753, -9.585) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, -0.635), Point(-1.33, -9.585) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.76, -0.635), Point(1.33, -0.635) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.33, -0.635), Point(-0.76, -0.635) ])
+  ref-label()
+
+pcb-symbol Conn_01x08-symbol :
+  pin Pin-1 at Point(-1.27, 7.62) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-2 at Point(-1.27, 5.08) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-3 at Point(-1.27, 2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-4 at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-5 at Point(-1.27, -2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-6 at Point(-1.27, -5.08) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-7 at Point(-1.27, -7.62) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-8 at Point(-1.27, -10.16) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 7.62))
+  layer("foreground") = Rectangle(2.54, 20.32, loc(0.0, -1.27))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 0.0))
+
+public pcb-component Conn_01x08 :
+  pin Pin-1
+  pin Pin-2
+  pin Pin-3
+  pin Pin-4
+  pin Pin-5
+  pin Pin-6
+  pin Pin-7
+  pin Pin-8
+  package = pinsocket-1x08-p1-27mm-vertical(Pin-1 => p[1], Pin-2 => p[2], Pin-3 => p[3], Pin-4 => p[4], Pin-5 => p[5], Pin-6 => p[6], Pin-7 => p[7], Pin-8 => p[8])
+  symbol = Conn_01x08-symbol(Pin-1 => Pin-1, Pin-2 => Pin-2, Pin-3 => Pin-3, Pin-4 => Pin-4, Pin-5 => Pin-5, Pin-6 => Pin-6, Pin-7 => Pin-7, Pin-8 => Pin-8)
+
+  name = "Connector_PinSocket_1.27mm:PinSocket_1x08_P1.27mm_Vertical"
+  description = "Through hole straight socket strip, 1x08, 1.27mm pitch, single row (from Kicad 4.0.7"
+  reference-prefix = "J"
+  mpn = "Conn_01x08"

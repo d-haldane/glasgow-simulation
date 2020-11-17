@@ -1,0 +1,52 @@
+#use-added-syntax(esir)
+defpackage glasgow/R :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package r-0603-1608metric :
+  pad p[1] : {smd-pad(0.875, 0.95)} at loc(-0.7875, 0.0, 0.0) on Bottom
+  pad p[2] : {smd-pad(0.875, 0.95)} at loc(0.7875, 0.0, 0.0) on Bottom
+
+  layer(Silkscreen("B-SilkS", Bottom)) = Line(0.12, [ Point(-0.162779, 0.51), Point(0.162779, 0.51) ])
+  layer(Silkscreen("B-SilkS", Bottom)) = Line(0.12, [ Point(-0.162779, -0.51), Point(0.162779, -0.51) ])
+  ref-label()
+
+pcb-symbol R-symbol :
+  pin p[1] at Point(0.0, 2.54) with :
+    direction = Up
+    length = 1.27
+    number-size = 0.762
+    name-size = 0.762
+  pin p[2] at Point(0.0, -2.54) with :
+    direction = Down
+    length = 1.27
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(2.032, 5.08, loc(0.0, 0.0))
+
+public pcb-component R :
+  pin p[1]
+  pin p[2]
+  package = r-0603-1608metric(p[1] => p[1], p[2] => p[2])
+  symbol = R-symbol(p[1] => p[1], p[2] => p[2])
+
+  name = "Resistor_SMD:R_0603_1608Metric"
+  description = "Resistor SMD 0603 (1608 Metric"
+  reference-prefix = "R"
+  mpn = "R"

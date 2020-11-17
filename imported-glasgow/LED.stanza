@@ -1,0 +1,65 @@
+#use-added-syntax(esir)
+defpackage glasgow/LED :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package led-0603-1608metric-pad1-05x0-95mm-handsolder :
+  pad p[1] : {smd-pad(1.05, 0.95)} at loc(-0.875, 0.0, 0.0)
+  pad p[2] : {smd-pad(1.05, 0.95)} at loc(0.875, 0.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.66, -0.735), Point(0.8, -0.735) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.66, 0.735), Point(-1.66, -0.735) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.8, 0.735), Point(-1.66, 0.735) ])
+  ref-label()
+
+pcb-symbol LED-symbol :
+  pin K at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin A at Point(1.27, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Line(0.254, [Point(1.27, -1.27), Point(1.27, 1.27)])
+  layer("foreground") = Line(0.254, [Point(1.27, 1.27), Point(-1.27, 0.0)])
+  layer("foreground") = Line(0.254, [Point(-1.27, 0.0), Point(1.27, -1.27)])
+  layer("foreground") = Line(0.0, [Point(-3.048, -0.762), Point(-4.572, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-4.572, -2.286), Point(-3.81, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-3.81, -2.286), Point(-4.572, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-4.572, -2.286), Point(-4.572, -1.524)])
+  layer("foreground") = Line(0.0, [Point(-1.778, -0.762), Point(-3.302, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-3.302, -2.286), Point(-2.54, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-2.54, -2.286), Point(-3.302, -2.286)])
+  layer("foreground") = Line(0.0, [Point(-3.302, -2.286), Point(-3.302, -1.524)])
+  layer("foreground") = Line(0.254, [Point(-1.27, -1.27), Point(-1.27, 1.27)])
+  layer("foreground") = Line(0.0, [Point(-1.27, 0.0), Point(1.27, 0.0)])
+
+public pcb-component LED :
+  pin A
+  pin K
+  package = led-0603-1608metric-pad1-05x0-95mm-handsolder(A => p[2], K => p[1])
+  symbol = LED-symbol(A => A, K => K)
+
+  name = "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
+  description = "LED SMD 0603 (1608 Metric"
+  reference-prefix = "D"
+  mpn = "LED"

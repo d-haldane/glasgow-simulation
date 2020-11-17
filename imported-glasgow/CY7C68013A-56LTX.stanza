@@ -1,0 +1,396 @@
+#use-added-syntax(esir)
+defpackage glasgow/CY7C68013A-56LTX :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package cypress-qfn-56-1ep-8x8mm-p0-5mm-ep6-22x6-22mm-thermalvias :
+  pad p[1] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 3.25, 0.0)
+  pad p[2] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 2.75, 0.0)
+  pad p[3] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 2.25, 0.0)
+  pad p[4] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 1.75, 0.0)
+  pad p[5] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 1.25, 0.0)
+  pad p[6] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 0.75, 0.0)
+  pad p[7] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, 0.25, 0.0)
+  pad p[8] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -0.25, 0.0)
+  pad p[9] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -0.75, 0.0)
+  pad p[10] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -1.25, 0.0)
+  pad p[11] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -1.75, 0.0)
+  pad p[12] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -2.25, 0.0)
+  pad p[13] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -2.75, 0.0)
+  pad p[14] : {oval-smd-pad(1.0, 0.28)} at loc(-4.0, -3.25, 0.0)
+  pad p[15] : {oval-smd-pad(0.28, 1.0)} at loc(-3.25, -4.0, 0.0)
+  pad p[16] : {oval-smd-pad(0.28, 1.0)} at loc(-2.75, -4.0, 0.0)
+  pad p[17] : {oval-smd-pad(0.28, 1.0)} at loc(-2.25, -4.0, 0.0)
+  pad p[18] : {oval-smd-pad(0.28, 1.0)} at loc(-1.75, -4.0, 0.0)
+  pad p[19] : {oval-smd-pad(0.28, 1.0)} at loc(-1.25, -4.0, 0.0)
+  pad p[20] : {oval-smd-pad(0.28, 1.0)} at loc(-0.75, -4.0, 0.0)
+  pad p[21] : {oval-smd-pad(0.28, 1.0)} at loc(-0.25, -4.0, 0.0)
+  pad p[22] : {oval-smd-pad(0.28, 1.0)} at loc(0.25, -4.0, 0.0)
+  pad p[23] : {oval-smd-pad(0.28, 1.0)} at loc(0.75, -4.0, 0.0)
+  pad p[24] : {oval-smd-pad(0.28, 1.0)} at loc(1.25, -4.0, 0.0)
+  pad p[25] : {oval-smd-pad(0.28, 1.0)} at loc(1.75, -4.0, 0.0)
+  pad p[26] : {oval-smd-pad(0.28, 1.0)} at loc(2.25, -4.0, 0.0)
+  pad p[27] : {oval-smd-pad(0.28, 1.0)} at loc(2.75, -4.0, 0.0)
+  pad p[28] : {oval-smd-pad(0.28, 1.0)} at loc(3.25, -4.0, 0.0)
+  pad p[29] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -3.25, 0.0)
+  pad p[30] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -2.75, 0.0)
+  pad p[31] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -2.25, 0.0)
+  pad p[32] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -1.75, 0.0)
+  pad p[33] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -1.25, 0.0)
+  pad p[34] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -0.75, 0.0)
+  pad p[35] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, -0.25, 0.0)
+  pad p[36] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 0.25, 0.0)
+  pad p[37] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 0.75, 0.0)
+  pad p[38] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 1.25, 0.0)
+  pad p[39] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 1.75, 0.0)
+  pad p[40] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 2.25, 0.0)
+  pad p[41] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 2.75, 0.0)
+  pad p[42] : {oval-smd-pad(1.0, 0.28)} at loc(4.0, 3.25, 0.0)
+  pad p[43] : {oval-smd-pad(0.28, 1.0)} at loc(3.25, 4.0, 0.0)
+  pad p[44] : {oval-smd-pad(0.28, 1.0)} at loc(2.75, 4.0, 0.0)
+  pad p[45] : {oval-smd-pad(0.28, 1.0)} at loc(2.25, 4.0, 0.0)
+  pad p[46] : {oval-smd-pad(0.28, 1.0)} at loc(1.75, 4.0, 0.0)
+  pad p[47] : {oval-smd-pad(0.28, 1.0)} at loc(1.25, 4.0, 0.0)
+  pad p[48] : {oval-smd-pad(0.28, 1.0)} at loc(0.75, 4.0, 0.0)
+  pad p[49] : {oval-smd-pad(0.28, 1.0)} at loc(0.25, 4.0, 0.0)
+  pad p[50] : {oval-smd-pad(0.28, 1.0)} at loc(-0.25, 4.0, 0.0)
+  pad p[51] : {oval-smd-pad(0.28, 1.0)} at loc(-0.75, 4.0, 0.0)
+  pad p[52] : {oval-smd-pad(0.28, 1.0)} at loc(-1.25, 4.0, 0.0)
+  pad p[53] : {oval-smd-pad(0.28, 1.0)} at loc(-1.75, 4.0, 0.0)
+  pad p[54] : {oval-smd-pad(0.28, 1.0)} at loc(-2.25, 4.0, 0.0)
+  pad p[55] : {oval-smd-pad(0.28, 1.0)} at loc(-2.75, 4.0, 0.0)
+  pad p[56] : {oval-smd-pad(0.28, 1.0)} at loc(-3.25, 4.0, 0.0)
+  pad p[57] : {pth-pad(0.15, 0.3)} at loc(1.27, 1.27, 0.0)
+  pad p[58] : {pth-pad(0.15, 0.3)} at loc(2.54, -1.27, 0.0)
+  pad p[59] : {pth-pad(0.15, 0.3)} at loc(-2.54, 1.27, 0.0)
+  pad p[60] : {pth-pad(0.15, 0.3)} at loc(-1.27, -2.54, 0.0)
+  pad p[61] : {pth-pad(0.15, 0.3)} at loc(1.27, -1.27, 0.0)
+  pad p[62] : {pth-pad(0.15, 0.3)} at loc(0.0, -2.54, 0.0)
+  pad p[63] : {pth-pad(0.15, 0.3)} at loc(2.54, 0.0, 0.0)
+  pad p[64] : {pth-pad(0.15, 0.3)} at loc(-1.27, 2.54, 0.0)
+  pad p[65] : {pth-pad(0.15, 0.3)} at loc(-1.27, -1.27, 0.0)
+  pad p[66] : {pth-pad(0.15, 0.3)} at loc(-1.27, 1.27, 0.0)
+  pad p[67] : {smd-pad(6.1, 6.1)} at loc(0.0, 0.0, 0.0) on Bottom
+  pad p[68] : {pth-pad(0.15, 0.3)} at loc(-2.54, -1.27, 0.0)
+  pad p[69] : {pth-pad(0.15, 0.3)} at loc(2.54, 1.27, 0.0)
+  pad p[70] : {pth-pad(0.15, 0.3)} at loc(0.0, 1.27, 0.0)
+  pad p[71] : {pth-pad(0.15, 0.3)} at loc(1.27, 2.54, 0.0)
+  pad p[72] : {pth-pad(0.15, 0.3)} at loc(-2.54, -2.54, 0.0)
+  pad p[73] : {pth-pad(0.15, 0.3)} at loc(0.0, -1.27, 0.0)
+  pad p[74] : {pth-pad(0.15, 0.3)} at loc(1.27, 0.0, 0.0)
+  pad p[75] : {pth-pad(0.15, 0.3)} at loc(0.0, 0.0, 0.0)
+  pad p[76] : {pth-pad(0.15, 0.3)} at loc(-1.27, 0.0, 0.0)
+  pad p[77] : {pth-pad(0.15, 0.3)} at loc(2.54, 2.54, 0.0)
+  pad p[78] : {pth-pad(0.15, 0.3)} at loc(-2.54, 0.0, 0.0)
+  pad p[79] : {pth-pad(0.15, 0.3)} at loc(1.27, -2.54, 0.0)
+  pad p[80] : {smd-pad(6.22, 6.22)} at loc(0.0, 0.0, 0.0)
+  pad p[81] : {pth-pad(0.15, 0.3)} at loc(2.54, -2.54, 0.0)
+  pad p[82] : {pth-pad(0.15, 0.3)} at loc(-2.54, 2.54, 0.0)
+  pad p[83] : {pth-pad(0.15, 0.3)} at loc(0.0, 2.54, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.72, 4.12), Point(-4.12, 4.12) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(4.12, -4.12), Point(3.72, -4.12) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(4.12, -3.72), Point(4.12, -4.12) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-4.12, -4.12), Point(-3.72, -4.12) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-4.12, -4.12), Point(-4.12, -3.72) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(4.12, 4.12), Point(4.12, 3.72) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(3.72, 4.12), Point(4.12, 4.12) ])
+  ref-label()
+
+pcb-symbol CY7C68013A-56LTX-symbol :
+  pin SLRD at Point(15.24, 2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin AGND at Point(-5.08, -48.26) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin VCC at Point(0.0, 48.26) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin GND at Point(0.0, -48.26) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin IFCLK at Point(15.24, -5.08) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin RESERVED at Point(-10.16, -48.26) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SCL at Point(-15.24, -30.48) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SDA at Point(-15.24, -27.94) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD0 at Point(15.24, 45.72) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD1 at Point(15.24, 43.18) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SLWR at Point(15.24, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD2 at Point(15.24, 40.64) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD3 at Point(15.24, 38.1) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD4 at Point(15.24, 35.559) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD5 at Point(15.24, 33.019) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD6 at Point(15.24, 30.48) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD7 at Point(15.24, 27.939) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FLAGA at Point(15.24, -12.7) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin AVCC at Point(-5.08, 48.26) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FLAGB at Point(15.24, -15.24) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FLAGC at Point(15.24, -17.78) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin nINT0 at Point(15.24, -22.86) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin nINT1 at Point(15.24, -25.4) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SLOE at Point(15.24, -27.94) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin WU2 at Point(15.24, -30.48) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FIOADDR0 at Point(15.24, -33.02) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FIOADDR1 at Point(15.24, -35.56) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin PKTEND at Point(15.24, -38.1) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin XTALOUT at Point(-15.24, 35.559) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin nSLCS at Point(15.24, -40.64) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin nRESET at Point(-15.24, 7.62) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin WAKEUP at Point(-15.24, 5.08) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD8 at Point(15.24, 25.4) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD9 at Point(15.24, 22.86) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD10 at Point(15.24, 20.32) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD11 at Point(15.24, 17.779) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD12 at Point(15.24, 15.24) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin XTALIN at Point(-15.24, 22.86) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD13 at Point(15.24, 12.7) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD14 at Point(15.24, 10.16) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin FD15 at Point(15.24, 7.62) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin CLKOUT at Point(15.24, -7.62) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin EP at Point(5.08, -48.26) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin D+ at Point(-15.24, -7.62) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin D- at Point(-15.24, -10.16) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(30.48, 96.52, loc(0.0, 0.0))
+
+public pcb-component CY7C68013A-56LTX :
+  pin D+
+  pin D-
+  pin EP
+  pin FD0
+  pin FD1
+  pin FD2
+  pin FD3
+  pin FD4
+  pin FD5
+  pin FD6
+  pin FD7
+  pin FD8
+  pin FD9
+  pin GND
+  pin SCL
+  pin SDA
+  pin VCC
+  pin WU2
+  pin AGND
+  pin AVCC
+  pin FD10
+  pin FD11
+  pin FD12
+  pin FD13
+  pin FD14
+  pin FD15
+  pin SLOE
+  pin SLRD
+  pin SLWR
+  pin FLAGA
+  pin FLAGB
+  pin FLAGC
+  pin IFCLK
+  pin nINT0
+  pin nINT1
+  pin nSLCS
+  pin CLKOUT
+  pin PKTEND
+  pin WAKEUP
+  pin XTALIN
+  pin nRESET
+  pin XTALOUT
+  pin FIOADDR0
+  pin FIOADDR1
+  pin RESERVED
+  package = cypress-qfn-56-1ep-8x8mm-p0-5mm-ep6-22x6-22mm-thermalvias(D+ => p[8], D- => p[9], EP => p[57], EP => p[58], EP => p[59], EP => p[60], EP => p[61], EP => p[62], EP => p[63], EP => p[64], EP => p[65], EP => p[66], EP => p[67], EP => p[68], EP => p[69], EP => p[70], EP => p[71], EP => p[72], EP => p[73], EP => p[74], EP => p[75], EP => p[76], EP => p[77], EP => p[78], EP => p[79], EP => p[80], EP => p[81], EP => p[82], EP => p[83], FD0 => p[18], FD1 => p[19], FD2 => p[20], FD3 => p[21], FD4 => p[22], FD5 => p[23], FD6 => p[24], FD7 => p[25], FD8 => p[45], FD9 => p[46], GND => p[12], GND => p[26], GND => p[28], GND => p[41], GND => p[53], GND => p[56], SCL => p[15], SDA => p[16], VCC => p[11], VCC => p[17], VCC => p[27], VCC => p[32], VCC => p[43], VCC => p[55], WU2 => p[36], AGND => p[6], AGND => p[10], AVCC => p[3], AVCC => p[7], FD10 => p[47], FD11 => p[48], FD12 => p[49], FD13 => p[50], FD14 => p[51], FD15 => p[52], SLOE => p[35], SLRD => p[1], SLWR => p[2], FLAGA => p[29], FLAGB => p[30], FLAGC => p[31], IFCLK => p[13], nINT0 => p[33], nINT1 => p[34], nSLCS => p[40], CLKOUT => p[54], PKTEND => p[39], WAKEUP => p[44], XTALIN => p[5], nRESET => p[42], XTALOUT => p[4], FIOADDR0 => p[37], FIOADDR1 => p[38], RESERVED => p[14])
+  symbol = CY7C68013A-56LTX-symbol(D+ => D+, D- => D-, EP => EP, FD0 => FD0, FD1 => FD1, FD2 => FD2, FD3 => FD3, FD4 => FD4, FD5 => FD5, FD6 => FD6, FD7 => FD7, FD8 => FD8, FD9 => FD9, GND => GND, SCL => SCL, SDA => SDA, VCC => VCC, WU2 => WU2, AGND => AGND, AVCC => AVCC, FD10 => FD10, FD11 => FD11, FD12 => FD12, FD13 => FD13, FD14 => FD14, FD15 => FD15, SLOE => SLOE, SLRD => SLRD, SLWR => SLWR, FLAGA => FLAGA, FLAGB => FLAGB, FLAGC => FLAGC, IFCLK => IFCLK, nINT0 => nINT0, nINT1 => nINT1, nSLCS => nSLCS, CLKOUT => CLKOUT, PKTEND => PKTEND, WAKEUP => WAKEUP, XTALIN => XTALIN, nRESET => nRESET, XTALOUT => XTALOUT, FIOADDR0 => FIOADDR0, FIOADDR1 => FIOADDR1, RESERVED => RESERVED)
+
+  name = "Package_DFN_QFN:Cypress_QFN-56-1EP_8x8mm_P0.5mm_EP6.22x6.22mm_ThermalVias"
+  description = "56-Lead Plastic Quad Flat, No Lead Package (ML"
+  reference-prefix = "U"
+  mpn = "CY7C68013A-56LTX"

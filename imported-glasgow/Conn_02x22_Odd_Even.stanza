@@ -1,0 +1,395 @@
+#use-added-syntax(esir)
+defpackage glasgow/Conn_02x22_Odd_Even :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package pinheader-2x22-p1-27mm-vertical-smd :
+  pad p[1] : {smd-pad(2.4, 0.74)} at loc(-1.95, 13.335, 0.0)
+  pad p[2] : {smd-pad(2.4, 0.74)} at loc(1.95, 13.335, 0.0)
+  pad p[3] : {smd-pad(2.4, 0.74)} at loc(-1.95, 12.065, 0.0)
+  pad p[4] : {smd-pad(2.4, 0.74)} at loc(1.95, 12.065, 0.0)
+  pad p[5] : {smd-pad(2.4, 0.74)} at loc(-1.95, 10.795, 0.0)
+  pad p[6] : {smd-pad(2.4, 0.74)} at loc(1.95, 10.795, 0.0)
+  pad p[7] : {smd-pad(2.4, 0.74)} at loc(-1.95, 9.525, 0.0)
+  pad p[8] : {smd-pad(2.4, 0.74)} at loc(1.95, 9.525, 0.0)
+  pad p[9] : {smd-pad(2.4, 0.74)} at loc(-1.95, 8.255, 0.0)
+  pad p[10] : {smd-pad(2.4, 0.74)} at loc(1.95, 8.255, 0.0)
+  pad p[11] : {smd-pad(2.4, 0.74)} at loc(-1.95, 6.985, 0.0)
+  pad p[12] : {smd-pad(2.4, 0.74)} at loc(1.95, 6.985, 0.0)
+  pad p[13] : {smd-pad(2.4, 0.74)} at loc(-1.95, 5.715, 0.0)
+  pad p[14] : {smd-pad(2.4, 0.74)} at loc(1.95, 5.715, 0.0)
+  pad p[15] : {smd-pad(2.4, 0.74)} at loc(-1.95, 4.445, 0.0)
+  pad p[16] : {smd-pad(2.4, 0.74)} at loc(1.95, 4.445, 0.0)
+  pad p[17] : {smd-pad(2.4, 0.74)} at loc(-1.95, 3.175, 0.0)
+  pad p[18] : {smd-pad(2.4, 0.74)} at loc(1.95, 3.175, 0.0)
+  pad p[19] : {smd-pad(2.4, 0.74)} at loc(-1.95, 1.905, 0.0)
+  pad p[20] : {smd-pad(2.4, 0.74)} at loc(1.95, 1.905, 0.0)
+  pad p[21] : {smd-pad(2.4, 0.74)} at loc(-1.95, 0.635, 0.0)
+  pad p[22] : {smd-pad(2.4, 0.74)} at loc(1.95, 0.635, 0.0)
+  pad p[23] : {smd-pad(2.4, 0.74)} at loc(-1.95, -0.635, 0.0)
+  pad p[24] : {smd-pad(2.4, 0.74)} at loc(1.95, -0.635, 0.0)
+  pad p[25] : {smd-pad(2.4, 0.74)} at loc(-1.95, -1.905, 0.0)
+  pad p[26] : {smd-pad(2.4, 0.74)} at loc(1.95, -1.905, 0.0)
+  pad p[27] : {smd-pad(2.4, 0.74)} at loc(-1.95, -3.175, 0.0)
+  pad p[28] : {smd-pad(2.4, 0.74)} at loc(1.95, -3.175, 0.0)
+  pad p[29] : {smd-pad(2.4, 0.74)} at loc(-1.95, -4.445, 0.0)
+  pad p[30] : {smd-pad(2.4, 0.74)} at loc(1.95, -4.445, 0.0)
+  pad p[31] : {smd-pad(2.4, 0.74)} at loc(-1.95, -5.715, 0.0)
+  pad p[32] : {smd-pad(2.4, 0.74)} at loc(1.95, -5.715, 0.0)
+  pad p[33] : {smd-pad(2.4, 0.74)} at loc(-1.95, -6.985, 0.0)
+  pad p[34] : {smd-pad(2.4, 0.74)} at loc(1.95, -6.985, 0.0)
+  pad p[35] : {smd-pad(2.4, 0.74)} at loc(-1.95, -8.255, 0.0)
+  pad p[36] : {smd-pad(2.4, 0.74)} at loc(1.95, -8.255, 0.0)
+  pad p[37] : {smd-pad(2.4, 0.74)} at loc(-1.95, -9.525, 0.0)
+  pad p[38] : {smd-pad(2.4, 0.74)} at loc(1.95, -9.525, 0.0)
+  pad p[39] : {smd-pad(2.4, 0.74)} at loc(-1.95, -10.795, 0.0)
+  pad p[40] : {smd-pad(2.4, 0.74)} at loc(1.95, -10.795, 0.0)
+  pad p[41] : {smd-pad(2.4, 0.74)} at loc(-1.95, -12.065, 0.0)
+  pad p[42] : {smd-pad(2.4, 0.74)} at loc(1.95, -12.065, 0.0)
+  pad p[43] : {smd-pad(2.4, 0.74)} at loc(-1.95, -13.335, 0.0)
+  pad p[44] : {smd-pad(2.4, 0.74)} at loc(1.95, -13.335, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.765, -13.965), Point(1.765, -14.03) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.765, -13.965), Point(-1.765, -14.03) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(1.765, 14.03), Point(1.765, 13.965) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.765, 14.03), Point(-1.765, 13.965) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.09, 13.965), Point(-1.765, 13.965) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.765, -14.03), Point(1.765, -14.03) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.765, 14.03), Point(1.765, 14.03) ])
+  ref-label()
+
+pcb-symbol Conn_02x22_Odd_Even-symbol :
+  pin Pin-1 at Point(-1.27, 25.4) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-10 at Point(3.81, 15.24) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-11 at Point(-1.27, 12.7) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-12 at Point(3.81, 12.7) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-13 at Point(-1.27, 10.16) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-14 at Point(3.81, 10.16) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-15 at Point(-1.27, 7.62) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-16 at Point(3.81, 7.62) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-17 at Point(-1.27, 5.08) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-18 at Point(3.81, 5.08) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-19 at Point(-1.27, 2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-2 at Point(3.81, 25.4) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-20 at Point(3.81, 2.54) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-21 at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-22 at Point(3.81, 0.0) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-23 at Point(-1.27, -2.54) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-24 at Point(3.81, -2.54) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-25 at Point(-1.27, -5.08) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-26 at Point(3.81, -5.08) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-27 at Point(-1.27, -7.62) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-28 at Point(3.81, -7.62) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-29 at Point(-1.27, -10.16) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-3 at Point(-1.27, 22.86) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-30 at Point(3.81, -10.16) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-31 at Point(-1.27, -12.7) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-32 at Point(3.81, -12.7) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-33 at Point(-1.27, -15.24) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-34 at Point(3.81, -15.24) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-35 at Point(-1.27, -17.78) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-36 at Point(3.81, -17.78) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-37 at Point(-1.27, -20.32) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-38 at Point(3.81, -20.32) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-39 at Point(-1.27, -22.86) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-4 at Point(3.81, 22.86) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-40 at Point(3.81, -22.86) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-41 at Point(-1.27, -25.4) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-42 at Point(3.81, -25.4) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-43 at Point(-1.27, -27.94) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-44 at Point(3.81, -27.94) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-5 at Point(-1.27, 20.32) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-6 at Point(3.81, 20.32) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-7 at Point(-1.27, 17.779) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-8 at Point(3.81, 17.779) with :
+    direction = Right
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+  pin Pin-9 at Point(-1.27, 15.24) with :
+    direction = Left
+    length = 3.81
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -27.94))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -12.7))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -15.24))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -17.78))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -20.32))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -22.86))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, -25.4))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 25.4))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 2.54))
+  layer("foreground") = Rectangle(5.08, 55.879, loc(1.27, -1.27))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 0.0))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 12.7))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 15.24))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 17.779))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 20.32))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(-0.635, 22.86))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -27.94))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -12.7))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -15.24))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -17.78))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -20.32))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -22.86))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, -25.4))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 25.4))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 2.54))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 5.08))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 7.62))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 10.16))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 0.0))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 12.7))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 15.24))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 17.779))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 20.32))
+  layer("foreground") = Rectangle(1.27, 0.254, loc(3.175, 22.86))
+
+public pcb-component Conn_02x22_Odd_Even :
+  pin Pin-1
+  pin Pin-2
+  pin Pin-3
+  pin Pin-4
+  pin Pin-5
+  pin Pin-6
+  pin Pin-7
+  pin Pin-8
+  pin Pin-9
+  pin Pin-10
+  pin Pin-11
+  pin Pin-12
+  pin Pin-13
+  pin Pin-14
+  pin Pin-15
+  pin Pin-16
+  pin Pin-17
+  pin Pin-18
+  pin Pin-19
+  pin Pin-20
+  pin Pin-21
+  pin Pin-22
+  pin Pin-23
+  pin Pin-24
+  pin Pin-25
+  pin Pin-26
+  pin Pin-27
+  pin Pin-28
+  pin Pin-29
+  pin Pin-30
+  pin Pin-31
+  pin Pin-32
+  pin Pin-33
+  pin Pin-34
+  pin Pin-35
+  pin Pin-36
+  pin Pin-37
+  pin Pin-38
+  pin Pin-39
+  pin Pin-40
+  pin Pin-41
+  pin Pin-42
+  pin Pin-43
+  pin Pin-44
+  package = pinheader-2x22-p1-27mm-vertical-smd(Pin-1 => p[1], Pin-2 => p[2], Pin-3 => p[3], Pin-4 => p[4], Pin-5 => p[5], Pin-6 => p[6], Pin-7 => p[7], Pin-8 => p[8], Pin-9 => p[9], Pin-10 => p[10], Pin-11 => p[11], Pin-12 => p[12], Pin-13 => p[13], Pin-14 => p[14], Pin-15 => p[15], Pin-16 => p[16], Pin-17 => p[17], Pin-18 => p[18], Pin-19 => p[19], Pin-20 => p[20], Pin-21 => p[21], Pin-22 => p[22], Pin-23 => p[23], Pin-24 => p[24], Pin-25 => p[25], Pin-26 => p[26], Pin-27 => p[27], Pin-28 => p[28], Pin-29 => p[29], Pin-30 => p[30], Pin-31 => p[31], Pin-32 => p[32], Pin-33 => p[33], Pin-34 => p[34], Pin-35 => p[35], Pin-36 => p[36], Pin-37 => p[37], Pin-38 => p[38], Pin-39 => p[39], Pin-40 => p[40], Pin-41 => p[41], Pin-42 => p[42], Pin-43 => p[43], Pin-44 => p[44])
+  symbol = Conn_02x22_Odd_Even-symbol(Pin-1 => Pin-1, Pin-2 => Pin-2, Pin-3 => Pin-3, Pin-4 => Pin-4, Pin-5 => Pin-5, Pin-6 => Pin-6, Pin-7 => Pin-7, Pin-8 => Pin-8, Pin-9 => Pin-9, Pin-10 => Pin-10, Pin-11 => Pin-11, Pin-12 => Pin-12, Pin-13 => Pin-13, Pin-14 => Pin-14, Pin-15 => Pin-15, Pin-16 => Pin-16, Pin-17 => Pin-17, Pin-18 => Pin-18, Pin-19 => Pin-19, Pin-20 => Pin-20, Pin-21 => Pin-21, Pin-22 => Pin-22, Pin-23 => Pin-23, Pin-24 => Pin-24, Pin-25 => Pin-25, Pin-26 => Pin-26, Pin-27 => Pin-27, Pin-28 => Pin-28, Pin-29 => Pin-29, Pin-30 => Pin-30, Pin-31 => Pin-31, Pin-32 => Pin-32, Pin-33 => Pin-33, Pin-34 => Pin-34, Pin-35 => Pin-35, Pin-36 => Pin-36, Pin-37 => Pin-37, Pin-38 => Pin-38, Pin-39 => Pin-39, Pin-40 => Pin-40, Pin-41 => Pin-41, Pin-42 => Pin-42, Pin-43 => Pin-43, Pin-44 => Pin-44)
+
+  name = "Connector_PinHeader_1.27mm:PinHeader_2x22_P1.27mm_Vertical_SMD"
+  description = "surface-mounted straight pin header, 2x22, 1.27mm pitch, double rows"
+  reference-prefix = "J"
+  mpn = "Conn_02x22_Odd_Even"

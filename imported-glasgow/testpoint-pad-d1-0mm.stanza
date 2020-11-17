@@ -1,0 +1,37 @@
+#use-added-syntax(esir)
+defpackage glasgow/testpoint-pad-d1-0mm :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package testpoint-pad-d1-0mm-pkg :
+  pad p[1] : {bga-pad(0.5)} at loc(0.0, 0.0, 0.0) on Bottom
+
+  layer(Silkscreen("B-SilkS", Bottom)) = Circle(Point(0.0, 0.0), 0.35)
+  ref-label()
+
+public pcb-component testpoint-pad-d1-0mm :
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+
+  make-pins(pinspec)
+  make-box-symbol(pinspec)
+  assign-package(testpoint-pad-d1-0mm-pkg, pinspec)
+
+  name = "TestPoint:TestPoint_Pad_D1.0mm"
+  description = "SMD pad as test Point, diameter 1.0mm"

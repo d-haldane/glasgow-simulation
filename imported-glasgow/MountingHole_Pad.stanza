@@ -1,0 +1,52 @@
+#use-added-syntax(esir)
+defpackage glasgow/MountingHole_Pad :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package mountinghole-3-5mm-pad-via-crtyd :
+  pad p[1] : {pth-pad(1.75, 3.5)} at loc(0.0, 0.0, 0.0)
+  pad p[2] : {pth-pad(0.25, 0.4)} at loc(1.856155, 1.856155, 0.0)
+  pad p[3] : {pth-pad(0.25, 0.4)} at loc(0.0, 2.625, 0.0)
+  pad p[4] : {pth-pad(0.25, 0.4)} at loc(-1.856155, 1.856155, 0.0)
+  pad p[5] : {pth-pad(0.25, 0.4)} at loc(-2.625, 0.0, 0.0)
+  pad p[6] : {pth-pad(0.25, 0.4)} at loc(-1.856155, -1.856155, 0.0)
+  pad p[7] : {pth-pad(0.25, 0.4)} at loc(0.0, -2.625, 0.0)
+  pad p[8] : {pth-pad(0.25, 0.4)} at loc(2.625, 0.0, 0.0)
+  pad p[9] : {pth-pad(0.25, 0.4)} at loc(1.856155, -1.856155, 0.0)
+
+  
+  ref-label()
+
+pcb-symbol MountingHole_Pad-symbol :
+  pin p[1] at Point(0.0, 0.0) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Circle(Point(0.0, 1.27), 1.27)
+
+public pcb-component MountingHole_Pad :
+  pin p[1]
+  package = mountinghole-3-5mm-pad-via-crtyd(p[1] => p[1], p[1] => p[2], p[1] => p[3], p[1] => p[4], p[1] => p[5], p[1] => p[6], p[1] => p[7], p[1] => p[8], p[1] => p[9])
+  symbol = MountingHole_Pad-symbol(p[1] => p[1])
+
+  name = "Glasgow:MountingHole_3.5mm_Pad_Via_CrtYd"
+  description = "Mounting Hole 3.5mm with Courtyard for Washers + Tolerance"
+  reference-prefix = "H"
+  mpn = "MountingHole_Pad"

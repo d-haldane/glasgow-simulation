@@ -1,0 +1,53 @@
+#use-added-syntax(esir)
+defpackage glasgow/c-C :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package c-0603-1608metric-pad1-05x0-95mm-handsolder :
+  pad p[1] : {smd-pad(1.05, 0.95)} at loc(-0.875, 0.0, 0.0)
+  pad p[2] : {smd-pad(1.05, 0.95)} at loc(0.875, 0.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.171267, -0.51), Point(0.171267, -0.51) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.171267, 0.51), Point(0.171267, 0.51) ])
+  ref-label()
+
+pcb-symbol c-C-symbol :
+  pin p[1] at Point(0.0, 1.016) with :
+    direction = Up
+    length = 2.794
+    number-size = 0.762
+    name-size = 0.762
+  pin p[2] at Point(0.0, -1.016) with :
+    direction = Down
+    length = 2.794
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Line(0.508, [Point(-2.032, -0.762), Point(2.032, -0.762)])
+  layer("foreground") = Line(0.508, [Point(-2.032, 0.762), Point(2.032, 0.762)])
+
+public pcb-component c-C :
+  pin p[1]
+  pin p[2]
+  package = c-0603-1608metric-pad1-05x0-95mm-handsolder(p[1] => p[1], p[2] => p[2])
+  symbol = c-C-symbol(p[1] => p[1], p[2] => p[2])
+
+  name = "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
+  description = "Capacitor SMD 0603 (1608 Metric"
+  reference-prefix = "C"
+  mpn = "C"

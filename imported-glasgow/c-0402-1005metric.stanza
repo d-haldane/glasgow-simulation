@@ -1,0 +1,39 @@
+#use-added-syntax(esir)
+defpackage glasgow/c-0402-1005metric :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package c-0402-1005metric-pkg :
+  pad p[1] : {smd-pad(0.59, 0.64)} at loc(-0.485, 0.0, 0.0) on Bottom
+  pad p[2] : {smd-pad(0.59, 0.64)} at loc(0.485, 0.0, 0.0) on Bottom
+
+  
+  ref-label()
+
+public pcb-component c-0402-1005metric :
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+    [p[2] | 2]
+
+  make-pins(pinspec)
+  make-box-symbol(pinspec)
+  assign-package(c-0402-1005metric-pkg, pinspec)
+
+  name = "Capacitor_SMD:C_0402_1005Metric"
+  description = "Capacitor SMD 0402 (1005 Metric"

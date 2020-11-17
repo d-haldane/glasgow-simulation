@@ -1,0 +1,58 @@
+#use-added-syntax(esir)
+defpackage glasgow/D_Zener :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package d-sod-523 :
+  pad p[1] : {smd-pad(0.6, 0.7)} at loc(-0.7, 0.0, 180.0)
+  pad p[2] : {smd-pad(0.6, 0.7)} at loc(0.7, 0.0, 180.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.7, -0.6), Point(-1.15, -0.6) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.7, 0.6), Point(-1.15, 0.6) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.15, 0.6), Point(-1.15, -0.6) ])
+  ref-label()
+
+pcb-symbol D_Zener-symbol :
+  pin K at Point(-1.27, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin A at Point(1.27, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Line(0.254, [Point(-1.27, -1.27), Point(-1.27, 1.27)])
+  layer("foreground") = Line(0.254, [Point(-1.27, 1.27), Point(-0.762, 1.27)])
+  layer("foreground") = Line(0.254, [Point(1.27, -1.27), Point(1.27, 1.27)])
+  layer("foreground") = Line(0.254, [Point(1.27, 1.27), Point(-1.27, 0.0)])
+  layer("foreground") = Line(0.254, [Point(-1.27, 0.0), Point(1.27, -1.27)])
+  layer("foreground") = Line(0.0, [Point(1.27, 0.0), Point(-1.27, 0.0)])
+
+public pcb-component D_Zener :
+  pin A
+  pin K
+  package = d-sod-523(A => p[2], K => p[1])
+  symbol = D_Zener-symbol(A => A, K => K)
+
+  name = "Diode_SMD:D_SOD-523"
+  description = "http://www.diodes.com/datasheets/ap02001.pdf p.144"
+  reference-prefix = "D"
+  mpn = "D_Zener"

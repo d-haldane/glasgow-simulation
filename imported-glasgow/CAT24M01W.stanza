@@ -1,0 +1,99 @@
+#use-added-syntax(esir)
+defpackage glasgow/CAT24M01W :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package soic-8-3-9x4-9mm-p1-27mm :
+  pad p[1] : {smd-pad(1.55, 0.6)} at loc(-2.7, 1.905, 0.0)
+  pad p[2] : {smd-pad(1.55, 0.6)} at loc(-2.7, 0.635, 0.0)
+  pad p[3] : {smd-pad(1.55, 0.6)} at loc(-2.7, -0.635, 0.0)
+  pad p[4] : {smd-pad(1.55, 0.6)} at loc(-2.7, -1.905, 0.0)
+  pad p[5] : {smd-pad(1.55, 0.6)} at loc(2.7, -1.905, 0.0)
+  pad p[6] : {smd-pad(1.55, 0.6)} at loc(2.7, -0.635, 0.0)
+  pad p[7] : {smd-pad(1.55, 0.6)} at loc(2.7, 0.635, 0.0)
+  pad p[8] : {smd-pad(1.55, 0.6)} at loc(2.7, 1.905, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-2.075, 2.525), Point(-3.475, 2.525) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-2.075, -2.575), Point(2.075, -2.575) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-2.075, 2.575), Point(2.075, 2.575) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-2.075, -2.575), Point(-2.075, -2.43) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(2.075, -2.575), Point(2.075, -2.43) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(2.075, 2.575), Point(2.075, 2.43) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.15, [ Point(-2.075, 2.575), Point(-2.075, 2.525) ])
+  ref-label()
+
+pcb-symbol CAT24M01W-symbol :
+  pin NC at Point(-5.08, 2.54) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin A1 at Point(-7.62, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin A2 at Point(-7.62, -2.54) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin GND at Point(0.0, -5.08) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SDA at Point(7.62, 2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin SCL at Point(7.62, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin WP at Point(7.62, -2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin VCC at Point(0.0, 5.08) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(15.24, 10.16, loc(0.0, 0.0))
+
+public pcb-component CAT24M01W :
+  pin A1
+  pin A2
+  pin NC
+  pin WP
+  pin GND
+  pin SCL
+  pin SDA
+  pin VCC
+  package = soic-8-3-9x4-9mm-p1-27mm(A1 => p[2], A2 => p[3], NC => p[1], WP => p[7], GND => p[4], SCL => p[6], SDA => p[5], VCC => p[8])
+  symbol = CAT24M01W-symbol(A1 => A1, A2 => A2, NC => NC, WP => WP, GND => GND, SCL => SCL, SDA => SDA, VCC => VCC)
+
+  name = "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+  description = "8-Lead Plastic Small Outline (SN"
+  reference-prefix = "U"
+  mpn = "CAT24M01W"

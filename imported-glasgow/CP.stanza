@@ -1,0 +1,63 @@
+#use-added-syntax(esir)
+defpackage glasgow/CP :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package cp-elec-5x3-9 :
+  pad p[1] : {smd-pad(3.0, 1.6)} at loc(-2.2, 0.0, 0.0)
+  pad p[2] : {smd-pad(3.0, 1.6)} at loc(2.2, 0.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(2.76, -2.76), Point(2.76, -1.06) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(2.76, 2.76), Point(2.76, 1.06) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.695563, 2.76), Point(2.76, 2.76) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.695563, -2.76), Point(2.76, -2.76) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.76, -1.695563), Point(-2.76, -1.06) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.76, 1.695563), Point(-2.76, 1.06) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.76, 1.695563), Point(-1.695563, 2.76) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-2.76, -1.695563), Point(-1.695563, -2.76) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.625, 1.685), Point(-3.0, 1.685) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-3.3125, 1.9975), Point(-3.3125, 1.3725) ])
+  ref-label()
+
+pcb-symbol CP-symbol :
+  pin p[1] at Point(0.0, 1.016) with :
+    direction = Up
+    length = 2.794
+    number-size = 0.762
+    name-size = 0.762
+  pin p[2] at Point(0.0, -1.016) with :
+    direction = Down
+    length = 2.794
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(4.572, 0.508, loc(0.0, 0.762))
+  layer("foreground") = Rectangle(4.572, 0.508, loc(0.0, -0.762))
+  layer("foreground") = Line(0.0, [Point(-1.778, 2.286), Point(-0.762, 2.286)])
+  layer("foreground") = Line(0.0, [Point(-1.27, 2.794), Point(-1.27, 1.778)])
+
+public pcb-component CP :
+  pin p[1]
+  pin p[2]
+  package = cp-elec-5x3-9(p[1] => p[1], p[2] => p[2])
+  symbol = CP-symbol(p[1] => p[1], p[2] => p[2])
+
+  name = "Capacitor_SMD:CP_Elec_5x3.9"
+  description = "SMT capacitor, aluminium electrolytic, 5x3.9, Nichicon "
+  reference-prefix = "C"
+  mpn = "CP"

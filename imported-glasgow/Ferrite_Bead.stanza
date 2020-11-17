@@ -1,0 +1,56 @@
+#use-added-syntax(esir)
+defpackage glasgow/Ferrite_Bead :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package l-0402-1005metric :
+  pad p[1] : {smd-pad(0.59, 0.64)} at loc(-0.485, 0.0, 0.0)
+  pad p[2] : {smd-pad(0.59, 0.64)} at loc(0.485, 0.0, 0.0)
+
+  
+  ref-label()
+
+pcb-symbol Ferrite_Bead-symbol :
+  pin p[1] at Point(0.0, 1.27) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin p[2] at Point(0.0, -1.27) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Line(0.0, [Point(-2.769, 0.406), Point(-1.702, 2.26)])
+  layer("foreground") = Line(0.0, [Point(-1.702, 2.26), Point(2.768, -0.305)])
+  layer("foreground") = Line(0.0, [Point(2.768, -0.305), Point(1.676, -2.159)])
+  layer("foreground") = Line(0.0, [Point(1.676, -2.159), Point(-2.769, 0.406)])
+  layer("foreground") = Line(0.0, [Point(0.0, -1.27), Point(0.0, -1.22)])
+  layer("foreground") = Line(0.0, [Point(0.0, 1.27), Point(0.0, 1.295)])
+
+public pcb-component Ferrite_Bead :
+  pin p[1]
+  pin p[2]
+  package = l-0402-1005metric(p[1] => p[1], p[2] => p[2])
+  symbol = Ferrite_Bead-symbol(p[1] => p[1], p[2] => p[2])
+
+  name = "Inductor_SMD:L_0402_1005Metric"
+  description = "Inductor SMD 0402 (1005 Metric"
+  reference-prefix = "FB"
+  mpn = "Ferrite_Bead"
