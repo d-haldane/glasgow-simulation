@@ -14,21 +14,56 @@ defpackage design-generator :
   import ocdb/design-vars
   import ocdb/generic-components
   import ocdb/power-regulators
+  import ocdb/symbols
+  import ocdb/land-patterns
+  import ocdb/generic-components
   
 pcb-module glasgow :
+
+  ; Tracing where the path to J1 below comes from:
+  ;   This file is in the directory /Users/toma/Documents/jitx/glasgow-simulation
+  ;   There is a stanza.proj here. It contains the line: include "imported-glasgow/stanza.proj"
+  ;   This is a file path, and this file contains the line:
+  ;     package glasgow/usb-micro-b-molex-47346-0001 defined-in "usb-micro-b-molex-47346-0001.stanza"
+  ;   This .stanza file contains the package statement: package glasgow/usb-micro-b-molex-47346-0001
+  ;   The absolute path of this .stanza file is:
+  ;   /Users/toma/Documents/jitx/glasgow-simulation/imported-glasgow/usb-micro-b-molex-47346-0001.stanza
+  ;   Within the package in this file is a pcb-component definition: glasgow/usb-micro-b-molex-47346-0001
+  ; The repeated name is because the pcb-component is defined in the package file:  
+  ;                                    contains the pcb-component is usb-micro-b-molex-47346-0001
+  ;   So it seems that the last package that was defined, glasgow/usb-micro-b-molex-47346-0001
+  ;   sets the top level name, and the full name of the pcb-component is: 
+  ;     glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001
+
   ; Power connector - references the imported model from the glasgow
   inst J1 : {glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001}
-  net gnd (J1.p[6])
 
+  ; C13 is not getting a capacitor symbol in KiCAD in generated library.
+  inst C13 : {glasgow/c-0402-1005metric/c-0402-1005metric("C13", 100.0e-9, 10.0, 25.0, "0402")}
+  ; C13 gets a capacitor symbol using gen-cap-cmp.
+  ; C13 is 0402 0.1uF TMK105BJ104KV-F 25V X5R 10% 0.5mm thick 
+  ;   gen-cap-cmp arguments are capacitance, tolerance, voltage rating, English package size.
+  ; inst C13 : {gen-cap-cmp(100.0e-9, 10.0, 25.0, "0402")}
+  net GND (C13.p[2])
+  net SHLD (C13.p[1], J1.p[6])
 
-  symbol(gnd) = {ocdb/symbols/ground-sym}
+  ; Question: the ground-sym seems to be from utils/symbols.stanza in package ocdb/symbols
+  ;           public pcb-symbol ground-sym
+  ;           The net name GND does not appear in the KiCAD schematic,
+  ;           GND does appear in glasgow.kicad_pcb
+
+  symbol(GND) = {ocdb/symbols/ground-sym}
 
 val main-design = default-board(glasgow, 4, 32.0,12.0)
 
 view(main-design)
+
 export-kicad("glasgow", [ `place => true 
                           `gen-board => true 
                           `gen-schematic => true 
                           `fresh => true 
                           `schematic-version => 4
                           `param-configs => [`sketch]] )
+
+export-netlist(glasgow.GND, "ggsim.cir")
+
