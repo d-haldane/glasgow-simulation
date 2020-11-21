@@ -83,3 +83,26 @@ public pcb-component TPD3S014DBVR :
   name = "Package_TO_SOT_SMD:SOT-23-6"
   description = "6-pin SOT-23 package" reference-prefix = "U"
   mpn = "TPD3S014DBVR"
+    spice :
+    ; Model is always-on. 
+    ; To model the channel resistance, a charge pump is needed.
+    ; Don't model that, the charge-pump model isn't ready yet.
+    ; Channel on resistance
+    "RON {p[3]} {p[4]} 0.097"
+    ; Quiescent current draw
+    "RDK {p[4]} {p[2]} 76K"
+    ; ESD diodes on D1 and D2
+    "DA {p[5]} {p[4]} DESD"
+    "DB {p[2]} {p[5]} DESD"
+    "DC {p[6]} {p[4]} DESD"
+    "DD {p[2]} {p[6]} DESD"
+    "RPDA {p[5]} {p[4]} 10MEG"
+    "RPDC {p[6]} {p[4]} 10MEG"
+    ; Zener protection for overvoltage and reverse voltage
+    "DZENER {p[2]} {p[4]} D_ZENER"
+    ; Diode protection for enable input
+    "DENU {p[1]} {p[3]} DESD"
+    "DEND {p[2]} {p[1]} DESD"   
+    "RRPDENU {p[3]} {p[1]} 100MEG"
+    ".model DESD D RS=1 N=1.5"
+    ".model D_ZENER D RS=1 N=1.5 BV=6 IBV=1m"

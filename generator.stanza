@@ -36,11 +36,15 @@ pcb-module glasgow :
   ;     glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001
 
   ; Power connector - references the imported model from the glasgow
-  inst J1 : {glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001("J1")}
+  inst J1 : {glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001}
   ; inst U15 : {glasgow/}
   ; C13 is not getting a capacitor symbol in KiCAD in generated library.
   inst C13 : {glasgow/c-0402-1005metric/c-0402-1005metric("C13", 100.0e-9, 10.0, 25.0, "0402")}
   inst C8 : {glasgow/c-0402-1005metric/c-0402-1005metric("C8", 100.0e-9, 10.0, 25.0, "0402")}
+  ; C26 is X5R close to its rated voltage. There will be a lot of capacitance loss ( about 80% )
+  ; caused by the voltage coefficient.
+  inst C26 : {glasgow/c-0402-1005metric/c-0402-1005metric("C26", 4.7e-6, 6.3, 10.0, "0603")}
+  inst C28 : {glasgow/c-0402-1005metric/c-0402-1005metric("C26", 4.7e-6, 6.3, 10.0, "0603")}
   inst U15 : {glasgow/TPD3S014DBVR/TPD3S014DBVR}
   ; C13 gets a capacitor symbol using gen-cap-cmp.
   ; C13 is 0402 0.1uF TMK105BJ104KV-F 25V X5R 10% 0.5mm thick 
@@ -50,13 +54,9 @@ pcb-module glasgow :
   net USB_N (J1.p[2], U15.p[5])
   net USB_P (J1.p[3], U15.p[6])
   net USB_NC (J1.p[4])
-  net GND (C13.p[2], J1.p[5], U15.p[2], C8.p[2])
+  net GND (C13.p[2], J1.p[5], U15.p[2], C8.p[2], C26.p[2])
   net SHLD (C13.p[1], J1.p[6])
-
-  ; Question: the ground-sym seems to be from utils/symbols.stanza in package ocdb/symbols
-  ;           public pcb-symbol ground-sym
-  ;           The net name GND does not appear in the KiCAD schematic,
-  ;           GND does appear in glasgow.kicad_pcb
+  net P5V (U15.p[4], C26.p[1])
 
   symbol(GND) = {ocdb/symbols/ground-sym}
 
