@@ -1,0 +1,85 @@
+#use-added-syntax(esir)
+; Part number TPD3S014DBVR
+defpackage glasgow/TPD3S014DBVR :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package sot-23-6 :
+  pad p[1] : {smd-pad(1.06, 0.65)} at loc(-1.1, 0.95, 0.0)
+  pad p[2] : {smd-pad(1.06, 0.65)} at loc(-1.1, 0.0, 0.0)
+  pad p[3] : {smd-pad(1.06, 0.65)} at loc(-1.1, -0.95, 0.0)
+  pad p[4] : {smd-pad(1.06, 0.65)} at loc(1.1, -0.95, 0.0)
+  pad p[5] : {smd-pad(1.06, 0.65)} at loc(1.1, 0.0, 0.0)
+  pad p[6] : {smd-pad(1.06, 0.65)} at loc(1.1, 0.95, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(0.9, 1.61), Point(-1.55, 1.61) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-0.9, -1.61), Point(0.9, -1.61) ])
+  ref-label()
+
+pcb-symbol TPD3S014DBVR-symbol :
+  pin EN at Point(0.0, 5.08) with :
+    direction = Up
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin GND at Point(0.0, -5.08) with :
+    direction = Down
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin IN at Point(-7.62, 0.0) with :
+    direction = Left
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin OUT at Point(7.62, -2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin D1 at Point(7.62, 0.0) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+  pin D2 at Point(7.62, 2.54) with :
+    direction = Right
+    length = 2.54
+    number-size = 0.762
+    name-size = 0.762
+
+  layer("foreground") = Rectangle(15.24, 10.16, loc(0.0, 0.0))
+  layer("foreground") = Text(">VALUE", 0.762, SW, loc(-2.5, 0.0))
+  layer("foreground") = Text(">REF", 0.762, SW, loc(-2.5, 2.0))
+
+public pcb-component TPD3S014DBVR :
+  port p : pin[{1 2 3 4 5 6}]
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+    [p[2] | 2]
+    [p[3] | 3]
+    [p[4] | 4]
+    [p[5] | 5]
+    [p[6] | 6]
+  assign-package(sot-23-6, pinspec)
+  symbol = TPD3S014DBVR-symbol(p[1] => EN, p[2] => GND, p[3] => IN, p[4] => OUT, p[5] => D1, p[6] => D2)
+
+  name = "Package_TO_SOT_SMD:SOT-23-6"
+  description = "6-pin SOT-23 package" reference-prefix = "U"
+  mpn = "TPD3S014DBVR"

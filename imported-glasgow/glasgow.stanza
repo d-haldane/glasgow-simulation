@@ -21,6 +21,7 @@ defpackage glasgow :
   import glasgow/R_Pack08
   import glasgow/R
   import glasgow/LM3880
+  import glasgow/TPD3S014DBVR
   import glasgow/Conn_01x02
   import glasgow/udfn-18-3ep-5-5x1-5mm-p0-5mm-ep0-5x0-5mm
   import glasgow/Conn_01x03
@@ -258,7 +259,7 @@ pcb-module glasgow :
   inst U12 : ADC081C021CIMM
   inst U13 : LM3880
   inst U14 : TPS73601DBV
-  inst U15 : LM3880
+  inst U15 : TPD3S014DBVR
   inst U16 : SN74LVC1T45DRL
   inst U17 : SN74LVC1T45DRL
   inst U18 : SN74LVC1T45DRL

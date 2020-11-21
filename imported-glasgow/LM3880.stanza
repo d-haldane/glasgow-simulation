@@ -1,4 +1,5 @@
 #use-added-syntax(esir)
+; Part number TPD3S014DBVR
 defpackage glasgow/LM3880 :
   import core
   import collections

@@ -21,19 +21,23 @@ defpackage glasgow/c-0402-1005metric :
 pcb-package c-0402-1005metric-pkg :
   pad p[1] : {smd-pad(0.59, 0.64)} at loc(-0.485, 0.0, 0.0) on Bottom
   pad p[2] : {smd-pad(0.59, 0.64)} at loc(0.485, 0.0, 0.0) on Bottom
-
-  
   ref-label()
 
-public pcb-component c-0402-1005metric :
-  val pinspec = PinSpec $ #TABLE :
-    [Ref | Int ... ]
-    [p[1] | 1]
-    [p[2] | 2]
-
-  make-pins(pinspec)
-  make-box-symbol(pinspec)
-  assign-package(c-0402-1005metric-pkg, pinspec)
+public pcb-component c-0402-1005metric (refdes:String, cap:Double, tol:Double, max-v:Double, pkg:String):
+  port p : pin[{1 2}]
+  symbol = {capacitor-sym(false)}(p[1] => p[1], p[2] => p[2])
+  package = {ipc-two-pin-package(pkg)}(p[1] => p[1], p[2] => p[2])
+  reference-prefix = "C"
+  spice :
+    "{refdes} {p[1]} {p[2]} {cap}"
+  properties:
+    capacitor => true
+    type => "ceramic"
+    capacitance => cap
+    tolerance => tol
+    rated-voltage => max-v
+    eai-code => "X5R"
+    rated-temperature => [-55.0 85.0]
 
   name = "Capacitor_SMD:C_0402_1005Metric"
-  description = "Capacitor SMD 0402 (1005 Metric"
+  description = "Capacitor 0.1uF SMD CHIP 0402(English) 25V X5R 10% 0.5mm thick"

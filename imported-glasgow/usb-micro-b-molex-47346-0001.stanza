@@ -39,7 +39,8 @@ pcb-package usb-micro-b-molex-47346-0001-pkg :
   layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(3.81, 1.71), Point(3.43, 1.71) ])
   ref-label()
 
-public pcb-component usb-micro-b-molex-47346-0001 :
+public pcb-component usb-micro-b-molex-47346-0001 (refdes:String):
+  port p : pin[{1 through 6}]
   val pinspec = PinSpec $ #TABLE :
     [Ref | Int ... ]
     [p[1] | 1]
@@ -49,9 +50,14 @@ public pcb-component usb-micro-b-molex-47346-0001 :
     [p[5] | 5]
     [p[6] | 6, 7, 8, 9, 10, 11]
 
-  make-pins(pinspec)
   make-box-symbol(pinspec)
   assign-package(usb-micro-b-molex-47346-0001-pkg, pinspec)
 
   name = "Connector_USB:USB_Micro-B_Molex_47346-0001"
   description = "Micro USB B receptable with flange, bottom-mount, SMD, right-angle (http://www.molex.com/pdm_docs/sd/473460001_sd.pdf"
+  spice :
+    "V{refdes} {p[1]} {p[5]} EXP(0 5 200u 200u 20 20)"
+    "R{refdes}_PU {p[3]} {p[1]} 50"
+    "R{refdes}_DK {p[2]} {p[5]} 50"
+    "R{refdes}_RSH {p[5]} {p[6]} 1"
+    "R{refdes}_RNC1 {p[4]} {p[5]} 100MEG"

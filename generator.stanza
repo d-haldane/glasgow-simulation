@@ -36,15 +36,21 @@ pcb-module glasgow :
   ;     glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001
 
   ; Power connector - references the imported model from the glasgow
-  inst J1 : {glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001}
-
+  inst J1 : {glasgow/usb-micro-b-molex-47346-0001/usb-micro-b-molex-47346-0001("J1")}
+  ; inst U15 : {glasgow/}
   ; C13 is not getting a capacitor symbol in KiCAD in generated library.
   inst C13 : {glasgow/c-0402-1005metric/c-0402-1005metric("C13", 100.0e-9, 10.0, 25.0, "0402")}
+  inst C8 : {glasgow/c-0402-1005metric/c-0402-1005metric("C8", 100.0e-9, 10.0, 25.0, "0402")}
+  inst U15 : {glasgow/TPD3S014DBVR/TPD3S014DBVR}
   ; C13 gets a capacitor symbol using gen-cap-cmp.
   ; C13 is 0402 0.1uF TMK105BJ104KV-F 25V X5R 10% 0.5mm thick 
   ;   gen-cap-cmp arguments are capacitance, tolerance, voltage rating, English package size.
   ; inst C13 : {gen-cap-cmp(100.0e-9, 10.0, 25.0, "0402")}
-  net GND (C13.p[2])
+  net VUSB (J1.p[1], U15.p[3], U15.p[1], C8.p[1])
+  net USB_N (J1.p[2], U15.p[5])
+  net USB_P (J1.p[3], U15.p[6])
+  net USB_NC (J1.p[4])
+  net GND (C13.p[2], J1.p[5], U15.p[2], C8.p[2])
   net SHLD (C13.p[1], J1.p[6])
 
   ; Question: the ground-sym seems to be from utils/symbols.stanza in package ocdb/symbols
