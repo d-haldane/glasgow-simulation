@@ -44,7 +44,7 @@ pcb-module glasgow :
   ; C26 is X5R close to its rated voltage. There will be a lot of capacitance loss ( about 80% )
   ; caused by the voltage coefficient.
   inst C26 : {glasgow/c-0402-1005metric/c-0402-1005metric("C26", 4.7e-6, 6.3, 10.0, "0603")}
-  inst C28 : {glasgow/c-0402-1005metric/c-0402-1005metric("C26", 4.7e-6, 6.3, 10.0, "0603")}
+  inst C28 : {glasgow/c-0402-1005metric/c-0402-1005metric("C28", 4.7e-6, 6.3, 10.0, "0603")}
   inst U15 : {glasgow/TPD3S014DBVR/TPD3S014DBVR}
   ; C13 gets a capacitor symbol using gen-cap-cmp.
   ; C13 is 0402 0.1uF TMK105BJ104KV-F 25V X5R 10% 0.5mm thick 
