@@ -1,0 +1,37 @@
+
+Circuit: Voltage regulator test circuit 
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Warning: v2: no DC value, transient time 0 value used
+Warning: v1: no DC value, transient time 0 value used
+No. of Data Columns : 8  
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vin                                          0
+ven                                          0
+vsw                                -1.2774e-25
+vcl                                2.66533e-26
+vout                               4.27595e-29
+v2#branch                                    0
+v1#branch                         -8.55191e-31
+
+
+No. of Data Rows : 1011
+CPU time since last call: 0.020 seconds.
+
+Total CPU time: 0.020 seconds.
+
+Total DRAM available = 32113.839844 MB.
+DRAM currently available = 18918.734375 MB.
+Total ngspice program size = 14.778320 MB.
+Resident set size = 1.937500 MB.
+Shared ngspice pages = 1.708984 MB.
+Text (code) pages = 1.333008 MB.
+Stack = 0 bytes.
+Library pages = 262.000 kB.
+
