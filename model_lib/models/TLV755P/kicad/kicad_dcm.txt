@@ -1,0 +1,6 @@
+$CMP TLV75509PDRVR
+D 500 mA Low Dropout Voltage Regulator, Fixed Output 0.9V, WSON6
+K 500mA LDO Regulator Fixed Positive
+F http://www.ti.com/lit/ds/symlink/tlv755p.pdf
+$ENDCMP
+
