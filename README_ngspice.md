@@ -112,6 +112,7 @@ Vprobe_C26_2 0 probe_20186 DC 0
 .end
 ```
 
+For some unknown reason the .measure statements cause NGSpice to dump core.
 Here is what it was changed to:
 
 ```

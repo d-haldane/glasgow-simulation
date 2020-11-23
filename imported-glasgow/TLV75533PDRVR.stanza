@@ -20,7 +20,7 @@ defpackage glasgow/TLV75533PDRVR :
   import ocdb/box-symbol
 
 pcb-package wson-7-drv0006a-pkg :
-  pad p[1] : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.65, 0.0)
+  pad OUT : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.65, 0.0)
   pad p[2] : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.0, 0.0)
   pad p[3] : {smd-pad(0.3, 0.35)} at loc(-0.9, -0.65, 0.0)
   pad p[4] : {smd-pad(0.3, 0.35)} at loc(0.9, -0.65, 0.0)
@@ -33,15 +33,17 @@ pcb-package wson-7-drv0006a-pkg :
   ref-label()
 
 public pcb-component TLV75533PDRVR :
-  port p : pin[{1 through 6}]
+  pin OUT
+  port p :pin[{2 through 6}]
   val pinspec = PinSpec $ #TABLE :
     [Ref | Int ... ]
-    [p[1] | 1]
+    [OUT | 1]
     [p[2] | 2]
     [p[3] | 3, 7]
     [p[4] | 4]
     [p[5] | 5]
     [p[6] | 6]
+    
 
   make-box-symbol(pinspec)
   assign-package(wson-7-drv0006a-pkg, pinspec)
@@ -52,12 +54,12 @@ public pcb-component TLV75533PDRVR :
   spice :
     "MSW {p[6]} VGEN VSW VSW MOSEN"
     "MCL VSW VCL VCL VCL MOSCL"
-    "MREG VCL {p[3]} {p[1]} {p[1]} MOSREG"
+    "MREG VCL {p[3]} {OUT} {OUT} MOSREG"
     "M4 VNEN {p[4]} VUVLO VUVLO MOSLOGN"
     "M7 VUVLO {p[6]} {p[3]} {p[3]} MOSUVLO"
     "M6 VFEN VNEN {p[3]} {p[3]} MOSLOGN"
     "M5 VFEN VNEN {p[6]} {p[6]} MOSLOGP"
-    "D1 {p[1]} {p[6]} SUBSTRATE"
+    "D1 {OUT} {p[6]} SUBSTRATE"
     "C2 VCL {p[3]} 1000p"
     "C3 VNEN {p[3]} 100f"
     "C5 VGEN {p[3]} 20p"
