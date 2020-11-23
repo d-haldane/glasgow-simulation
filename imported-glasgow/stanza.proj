@@ -1,5 +1,6 @@
 
 package glasgow/TPD3S014DBVR defined-in "TPD3S014DBVR.stanza"
+package glasgow/TLV75533PDRVR defined-in "TLV75533PDRVR.stanza"
 package glasgow/R_Pack08 defined-in "R_Pack08.stanza"
 package glasgow/Ferrite_Bead defined-in "Ferrite_Bead.stanza"
 package glasgow/MountingHole_Pad defined-in "MountingHole_Pad.stanza"

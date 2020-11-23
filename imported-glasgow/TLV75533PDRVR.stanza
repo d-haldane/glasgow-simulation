@@ -1,0 +1,66 @@
+#use-added-syntax(esir)
+; Part number TLV75533PDRVR
+defpackage glasgow/TLV75533PDRVR :
+  import core
+  import collections
+  import math
+  import esir
+  import esir/utils
+  import esir/gen
+  import esir/repl-lib
+  import jitpcb/visualizer
+
+  import ocdb/tests/default-harness
+  import ocdb/land-patterns
+  import ocdb/symbols
+  import ocdb/symbol-utils
+  import ocdb/generic-components
+
+  import ocdb/pinspec
+  import ocdb/box-symbol
+
+pcb-package wson-7-drv0006a-pkg :
+  pad p[1] : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.65, 0.0)
+  pad p[2] : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.0, 0.0)
+  pad p[3] : {smd-pad(0.3, 0.35)} at loc(-0.9, -0.65, 0.0)
+  pad p[4] : {smd-pad(0.3, 0.35)} at loc(0.9, -0.65, 0.0)
+  pad p[5] : {smd-pad(0.3, 0.35)} at loc(0.9, 0.0, 0.0)
+  pad p[6] : {smd-pad(0.3, 0.35)} at loc(0.9, 0.65, 0.0)
+  pad p[7] : {smd-pad(1.0, 1.60)} at loc(0.0, 0.0)
+
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.29, 1.17), Point(-1.05, 1.17) ])
+  layer(Silkscreen("F-SilkS", Top)) = Line(0.12, [ Point(-1.17, 1.29), Point(-1.17, 1.05) ])
+  ref-label()
+
+public pcb-component TLV75533PDRVR :
+  port p : pin[{1 through 6}]
+  val pinspec = PinSpec $ #TABLE :
+    [Ref | Int ... ]
+    [p[1] | 1]
+    [p[2] | 2]
+    [p[3] | 3, 7]
+    [p[4] | 4]
+    [p[5] | 5]
+    [p[6] | 6]
+
+  make-box-symbol(pinspec)
+  assign-package(wson-7-drv0006a-pkg, pinspec)
+  name = "Package_DFN_QFN:UDFN-6-1EP_2.1x2.1mm_P0.8mm"
+  description = "7-pin WSON EP package"
+  mpn = "TLV75533PDRVR"
+
+  spice :
+    "MSW {p[6]} VGEN VSW VSW MOSEN"
+    "MCL VSW VCL VCL VCL MOSCL"
+    "MREG VCL {p[3]} {p[1]} {p[1]} MOSREG"
+    "M4 VNEN {p[4]} VUVLO VUVLO MOSLOGN"
+    "M7 VUVLO {p[6]} {p[3]} {p[3]} MOSUVLO"
+    "M6 VGEN VNEN {p[3]} {p[3]} MOSLOGN"
+    "M5 VGEN VNEN {p[6]} {p[6]} MOSLOGP"
+    "C2 VCL {p[3]} 1000p"
+    "C3 VNEN {p[3]} 100f"
+    "C5 VGEN {p[3]} 1p"
+    "C6 VUVLO {p[3]} 100f"
+    "C7 VSW {p[3]} 100p"
+    "R2 {p[6]} VNEN 1MEG"
+    "CCL VCL {p[3]} 1n"
