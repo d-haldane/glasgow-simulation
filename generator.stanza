@@ -58,7 +58,7 @@ pcb-module glasgow :
   net GND (C13.p[2], J1.p[5], U15.p[2], C8.p[2], C26.p[2], C28.p[2], U8.p[3])
   net SHLD (C13.p[1], J1.p[6])
   net P5V (U15.p[4], C26.p[1], U8.p[6], U8.p[5], R7.p[2])
-  net P3R3V (U8.p[1], U8.p[2], C28.p[1])
+  net P3R3V (U8.OUT, U8.p[2], C28.p[1])
   net P3V3EN (U8.p[4], R7.p[1])
 
   symbol(GND) = {ocdb/symbols/ground-sym}

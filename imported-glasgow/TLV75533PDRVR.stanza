@@ -20,7 +20,7 @@ defpackage glasgow/TLV75533PDRVR :
   import ocdb/box-symbol
 
 pcb-package wson-7-drv0006a-pkg :
-  pad OUT : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.65, 0.0)
+  pad p[1] : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.65, 0.0)
   pad p[2] : {smd-pad(0.3, 0.35)} at loc(-0.9, 0.0, 0.0)
   pad p[3] : {smd-pad(0.3, 0.35)} at loc(-0.9, -0.65, 0.0)
   pad p[4] : {smd-pad(0.3, 0.35)} at loc(0.9, -0.65, 0.0)
